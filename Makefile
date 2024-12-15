@@ -6,13 +6,14 @@
 #    By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/15 18:05:31 by teando            #+#    #+#              #
-#    Updated: 2024/12/15 18:26:17 by teando           ###   ########.fr        #
+#    Updated: 2024/12/16 01:53:26 by teando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= minishell
 CC			:= cc
 CFLAGS		:= -Wall -Wextra -Werror
+LFLAGS		:= -lreadline
 RM			:= rm -rf
 ROOT_DIR	:= .
 OUT_DIR		:= $(ROOT_DIR)/obj
@@ -22,7 +23,7 @@ LIBFT		:= $(LIBFT_DIR)/libft.a
 IDFLAGS		:= -I$(INCS_DIR) -I$(LIBFT_DIR)
 
 SRCS 		:= \
-	$(addprefix srcs/, \
+	$(addprefix src/, \
 		$(addprefix 0_parser/, \
 		) \
 		$(addprefix 1_tokenizer/, \
@@ -32,6 +33,7 @@ SRCS 		:= \
 		$(addprefix 3_redirect/, \
 		) \
 		$(addprefix 4_signals/, \
+			sig_setup.c \
 		) \
 		$(addprefix 5_env/, \
 		) \
@@ -53,9 +55,9 @@ endif
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBFT) -o $@
 
-$(LIBFT): | sub-init
+$(LIBFT): | $(LIBFT_DIR)/.init-stamp
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(OUT_DIR)/%.o: $(ROOT_DIR)/%.c
@@ -72,8 +74,9 @@ fclean: clean
 
 re: fclean all
 	
-sub-init:
+$(LIBFT_DIR)/.init-stamp :
 	git submodule update --init --recursive
+	touch $@
 
 sub:
 	git submodule update --remote

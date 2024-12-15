@@ -1,63 +1,47 @@
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/16 01:34:19 by teando            #+#    #+#             */
+/*   Updated: 2024/12/16 01:48:22 by teando           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#define PROMPT "minishell> "
+#include "minishell.h"
 
-// Signal handler for interactive mode
-void	handle_signal(int sig)
-{
-	if (sig == SIGINT) // Ctrl-C
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (sig == SIGQUIT) // Ctrl-backslash
-	{
-		; // Do nothing
-	}
-}
-
+/*
+ * Day1の目標:
+ * - readlineでユーザ入力を取得
+ * - Ctrl-D（readlineがNULL）でシェル終了
+ * - Ctrl-Cで新しいプロンプト表示(実際の処理はsignalハンドラで行う)
+ *
+ * 環境構築と簡易的なシグナル対応、基本ループのみを実装
+ */
 int	main(void)
 {
-	char	*input;
+	char	*line;
 
-	// Set up signal handlers
-	signal(SIGINT, handle_signal);
-	signal(SIGQUIT, handle_signal);
+	init_signals();
 	while (1)
 	{
-		// readline関数でプロンプトを表示し、ユーザー入力を取得
-		input = readline(PROMPT);
-		// 入力がNULLの場合（Ctrl-DなどでEOFが送られた場合）、シェルを終了
-		if (!input)
+		line = readline(PROMPT);
+		if (!line) // Ctrl-D対応: readlineがNULLを返したら終了
 		{
-			printf("\nExiting minishell.\n");
+			// 終了処理をここで行う（必要なら）
+			write(STDOUT_FILENO, "exit\n", 5);
 			break ;
 		}
-		// 入力が空でない場合は履歴に追加
-		if (*input)
-		{
-			add_history(input);
-		}
-		// 未完成のコマンドチェック（例: 開いた引用符が閉じられていない）
-		if (input[0] == '\'' || input[0] == '"')
-		{
-			printf("Error: Unmatched quotes.\n");
-			free(input);
-			continue ;
-		}
-		// ユーザーの入力内容を出力（デバッグ目的）
-		printf("You entered: %s\n", input);
-		// メモリ解放
-		free(input);
+		// 入力が空でなければヒストリ追加
+		if (*line)
+			add_history(line);
+		// Day1ではここで入力を即座に処理せず、そのまま表示して終わる(テスト用)
+		// 今後lexerやparser実装後にここで処理を呼び出す。
+		// 今は動作確認用
+		// printf("DEBUG: got line: %s\n", line);
+		free(line);
 	}
-	// readlineの履歴をクリア
-	rl_clear_history();
 	return (0);
 }
