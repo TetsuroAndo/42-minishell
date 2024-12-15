@@ -3,8 +3,8 @@
 *.swp
 *.log
 *.db
-*test*
 *Test*
+*TEST*
 logs/*
 *venv*
 out
