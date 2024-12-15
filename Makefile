@@ -6,13 +6,14 @@
 #    By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/15 18:05:31 by teando            #+#    #+#              #
-#    Updated: 2024/12/15 18:11:48 by teando           ###   ########.fr        #
+#    Updated: 2024/12/15 18:26:17 by teando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= minishell
 CC			:= cc
 CFLAGS		:= -Wall -Wextra -Werror
+RM			:= rm -rf
 ROOT_DIR	:= .
 OUT_DIR		:= $(ROOT_DIR)/obj
 INCS_DIR	:= $(ROOT_DIR)/inc
@@ -63,11 +64,11 @@ $(OUT_DIR)/%.o: $(ROOT_DIR)/%.c
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
-	rm -rf $(OUT_DIR)
+	$(RM) $(OUT_DIR)
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 	
