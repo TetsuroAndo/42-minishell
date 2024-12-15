@@ -6,7 +6,7 @@
 #    By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/15 18:05:31 by teando            #+#    #+#              #
-#    Updated: 2024/12/16 01:53:26 by teando           ###   ########.fr        #
+#    Updated: 2024/12/16 02:00:55 by teando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,22 +24,24 @@ IDFLAGS		:= -I$(INCS_DIR) -I$(LIBFT_DIR)
 
 SRCS 		:= \
 	$(addprefix src/, \
-		$(addprefix 0_parser/, \
+		$(addprefix 0_core/, \
 		) \
-		$(addprefix 1_tokenizer/, \
+		$(addprefix 1_parser/, \
 		) \
-		$(addprefix 2_executor/, \
+		$(addprefix 2_tokenizer/, \
 		) \
-		$(addprefix 3_redirect/, \
+		$(addprefix 3_executor/, \
 		) \
-		$(addprefix 4_signals/, \
-			sig_setup.c \
+		$(addprefix 4_redirect/, \
 		) \
 		$(addprefix 5_env/, \
 		) \
-		$(addprefix 6_builtin/, \
+		$(addprefix 6_signals/, \
+			sig_setup.c \
 		) \
-		$(addprefix 7_utils/, \
+		$(addprefix 7_builtin/, \
+		) \
+		$(addprefix 8_utils/, \
 		) \
 		main.c \
 	)
