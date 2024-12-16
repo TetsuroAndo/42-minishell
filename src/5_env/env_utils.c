@@ -11,11 +11,21 @@ static t_list *_get_ptr(t_list *env, char *key)
 static char *_get_key(char *ent)
 {
     char *key;
+    char *delimiter = ft_strchr(ent, '=');
+
+
     return ;
 }
-
+/*
+*keyの有効性を確かめる
+*/
 static int _check_key(char *key)
 {
+    /*
+    アルファベット（a-z, A-Z）またはアンダースコア（_）で始まる必要がある。
+    2文字目以降は、アルファベット、数字（0-9）、またはアンダースコアが使える。
+    空白や特殊記号（例: !, @, #, - など）は使用できない(chatGPT)
+    */
     //todo TEST=など
     return 0;
 }
@@ -28,7 +38,7 @@ char *env_get(t_list *env, char *key)
 
 t_status env_export(t_list **env, char *ent)
 {
-    char *key;
+    char key[MAX_WORD_LEN];
     key = _get_key(ent);
     if (!key)
         return E_ENV_KEY;
