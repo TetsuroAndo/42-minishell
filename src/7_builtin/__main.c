@@ -6,7 +6,7 @@
 int main(int argc, char const **argv,char **env)
 {
     t_info info;
-    info.cwd = "/TEST/testdir";
+    info.cwd = "/TEST";
     builtin_pwd(&info);
     return 0;
 }
@@ -23,3 +23,13 @@ int main(int argc, char const **argv, char **env)
     return 0;
 }
 #endif // TEST_CD
+
+
+#ifdef TEST_ECHO
+
+int main(int argc, char const **argv, char **env)
+{
+
+}
+
+#endif // TEST_ECHO

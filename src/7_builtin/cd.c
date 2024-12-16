@@ -10,6 +10,8 @@ static int check_valid_dir(char *absolute_path)
 
 void builtin_cd(char *absolute_path, t_info *info, t_btmap *env)
 {
+    //todo path -> absolute pathはこの関数の中で行う方が良いか
+
     //char cwd[MAX_WORD_LEN];
     if (check_valid_dir(absolute_path))
     {
