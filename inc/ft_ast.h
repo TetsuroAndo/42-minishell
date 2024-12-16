@@ -24,3 +24,8 @@ typedef struct s_ast_node
     struct s_ast_node    *left;
     struct s_ast_node    *right;
 }    t_ast_node;
+
+
+/**** funcs ****/
+//parseする関数（汎用的なものはここ、minishellでしか使えないものはft_parse.hに）
+//走査する関数

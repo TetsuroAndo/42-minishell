@@ -21,7 +21,7 @@ typedef struct s_btmap
 
 /**** funcs ****/
 
-t_btmap *btmap_new();
+//t_btmap *btmap_new();
 void btmap_clear(t_btmap *btmap);
 //keyから値を取得、なかったらNULL
 char *btmap_get(t_btmap env, char *key);
