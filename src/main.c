@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 01:34:19 by teando            #+#    #+#             */
-/*   Updated: 2024/12/16 01:48:22 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/16 15:54:37 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
  *
  * 環境構築と簡易的なシグナル対応、基本ループのみを実装
  */
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 
+	(void)argc;
+	(void)argv; // 未使用
 	init_signals();
 	while (1)
 	{
