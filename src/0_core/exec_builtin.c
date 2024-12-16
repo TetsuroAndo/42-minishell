@@ -11,28 +11,53 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-static char **builtin_path = {"echo","cd","pwd","export","unset","env","exit"};
+#include "ft_builtin.h"
 
-int	is_builtin(char *cmd)
-{
-	if (!cmd)
-		return (0);
-	if (!ft_strcmp(cmd, "echo"))
-		return (1);
-	if (!ft_strcmp(cmd, "cd"))
-		return (1);
-	if (!ft_strcmp(cmd, "pwd"))
-		return (1);
-	if (!ft_strcmp(cmd, "export"))
-		return (1);
-	if (!ft_strcmp(cmd, "unset"))
-		return (1);
-	if (!ft_strcmp(cmd, "env"))
-		return (1);
-	if (!ft_strcmp(cmd, "exit"))
-		return (1);
-	return (0);
+
+
+// ビルトイン関数を実行する
+t_status execute_builtin(char *path, char **argv, t_info *info) {
+
+	static const char *builtin_names[] = {
+		"pwd","cd","echo","export","unset","exit","env"
+	};
+
+	static builtin_func_t builtin_funcs[] = {
+		builtin_pwd,builtin_cd,builtin_echo,builtin_export,builtin_unset,builtin_exit,builtin_env
+	};
+   
+    size_t i = 0;
+    while (i < sizeof(builtin_names) / sizeof(builtin_names[0]))
+	{
+        if (ft_strncmp(path, builtin_names[i],ft_strlen(path)) == 0) {
+            return builtin_funcs[i](path, argv, info);
+        }
+        i++;
+    }
+
+    return -1;//見つからない場合は他のコマンドを実行するからvoidでも良いかな
 }
+// int	is_builtin(char *cmd)
+// {
+// 	if (!cmd)
+// 		return (0);
+// 	if (!ft_strcmp(cmd, "echo"))
+// 		return (1);
+// 	if (!ft_strcmp(cmd, "cd"))
+// 		return (1);
+// 	if (!ft_strcmp(cmd, "pwd"))
+// 		return (1);
+// 	if (!ft_strcmp(cmd, "export"))
+// 		return (1);
+// 	if (!ft_strcmp(cmd, "unset"))
+// 		return (1);
+// 	if (!ft_strcmp(cmd, "env"))
+// 		return (1);
+// 	if (!ft_strcmp(cmd, "exit"))
+// 		return (1);
+// 	return (0);
+// }
+
 
 // int	exec_builtin(void)
 // {

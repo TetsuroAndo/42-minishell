@@ -14,7 +14,7 @@
 #include "ft_env.h"
 #include "system.h"
 
-void	exec_exit(const char *path, char **argv, t_info *info)
+void	builtin_exit(const char *path, char **argv, t_info *info)
 {
 	(void)argv; // 引数未対応だが将来対応可能
 	printf("exit\n");//debug ??

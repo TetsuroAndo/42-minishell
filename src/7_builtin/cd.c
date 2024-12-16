@@ -8,7 +8,7 @@ static int check_valid_dir(char *absolute_path)
     return 0;
 }
 
-t_status builtin_cd(const char *path, char **argv, t_info *info)
+t_status builtin_cd(char *path, char **argv, t_info *info)
 {
     //todo path -> absolute pathはこの関数の中で行う方が良いか
 

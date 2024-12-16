@@ -14,7 +14,7 @@
 #include "ft_env.h"
 #include "system.h"
 
-t_status	exec_env(const char *path, char **argv, t_info *info)
+t_status	builtin_env(const char *path, char **argv, t_info *info)
 {
 	(void)path;
 	size_t	i;
