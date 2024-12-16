@@ -14,8 +14,8 @@ typedef t_status (*builtin_func_t)(const char *path, char **argv, t_info *info);
 
 //static char **builtin_path = {"echo","cd","pwd","export","unset","env","exit"};
 /**** funcs ****/
-t_status builtin_pwd(char *path, t_info *info, t_list *env);
-t_status builtin_cd(char *path, t_info *info, t_list *env);
+t_status builtin_pwd(const char *path, char **argv, t_info *info);
+t_status builtin_cd(const char *path, char **argv, t_info *info);
 t_status builtin_echo(const char *path, char **argv, t_info *info);
 t_status builtin_export(const char *path, char **argv, t_info *info);
 t_status builtin_unset(const char *path, char **argv, t_info *info);

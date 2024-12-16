@@ -1,14 +1,13 @@
 #include "system.h"
 
-t_info *system_init()
+t_info *system_init(char **envp)
 {
     t_info *info = malloc(sizeof(t_info));
     if (!info)
-        reuturn NULL;
+        return NULL;
     info->ast = NULL;
     info->env_map = ft_lstnew;
-    //todo environの使い方、使えなかったら普通にmainの第３引数を渡せば大丈夫
-    //info->envp = environ;
+    env_update();
     info->is_env_updated = 0;
     info->cwd = malloc(sizeof(char) * MAX_WORD_LEN);
     getcwd(info->cwd);

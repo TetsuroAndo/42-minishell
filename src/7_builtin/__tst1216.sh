@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "--------TESTING--------"
-cc *.c -I../../inc -o test && ./test && rm ./test
+cc *.c ../9_system/*.c ../5_env/*.c -L.-llibft.a -I../../inc -o test && ./test && rm ./test
 
 
 

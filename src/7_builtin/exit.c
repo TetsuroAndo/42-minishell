@@ -14,10 +14,10 @@
 #include "ft_env.h"
 #include "system.h"
 
-void	builtin_exit(const char *path, char **argv, t_info *info)
+t_status	builtin_exit(const char *path, char **argv, t_info *info)
 {
 	(void)argv; // 引数未対応だが将来対応可能
-	printf("exit\n");//debug ??
+	printf("exit\n");
 	system_deinit(info);
 	exit(info->status);
 }
