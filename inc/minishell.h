@@ -22,6 +22,8 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+#include "minishell_info.h"
+
 # define PROMPT "minishell> "
 
 /* <----------- 0_core: exec_builtin -----------> */
