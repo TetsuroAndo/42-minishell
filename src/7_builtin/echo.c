@@ -14,7 +14,7 @@
 #include "ft_env.h"
 #include "system.h"
 
-void	exec_echo(const char *path, char **argv, t_info *info)
+t_status	exec_echo(const char *path, char **argv, t_info *info)
 {
 	int	i;
 	int is_option_n;
@@ -32,4 +32,5 @@ void	exec_echo(const char *path, char **argv, t_info *info)
 		i++;
 	}
 	printf("\n");
+	return (E_NONE);
 }

@@ -34,6 +34,5 @@ int		exec_builtin(void);
 void	init_signals(void);
 
 /* <----------- 7_builtin -----------> */
-void	builtin_pwd(const t_info *info);
 
 #endif

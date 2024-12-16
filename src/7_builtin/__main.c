@@ -1,4 +1,5 @@
 #include "ft_builtin.h"
+#include "system.h"
 #include <unistd.h>
 
 
@@ -29,11 +30,11 @@ int test_cd(t_info *info)
 int main(int argc, char const **argv, char **env)
 {
 
-    t_info info;
-    info.cwd = malloc(256);
-    getcwd(info.cwd,256);
-
-    test_cd(&info);
-    free(info.cwd);
+    t_info *info;
+    // info.cwd = malloc(256);
+    // getcwd(info.cwd,256);
+    info = system_init();
+    test_cd(info);
+    system_deinit(info);
     return 0;
 }

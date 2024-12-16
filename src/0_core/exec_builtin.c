@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 static char **builtin_path = {"echo","cd","pwd","export","unset","env","exit"};
+
 int	is_builtin(char *cmd)
 {
 	if (!cmd)
@@ -33,21 +34,21 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-int	exec_builtin(void)
-{
-	if (!ft_strcmp(argv[0], "echo"))
-		return ();
-	if (!ft_strcmp(argv[0], "cd"))
-		return ();
-	if (!ft_strcmp(argv[0], "pwd"))
-		return (builtin_pwd());
-	if (!ft_strcmp(argv[0], "export"))
-		return ();
-	if (!ft_strcmp(argv[0], "unset"))
-		return ();
-	if (!ft_strcmp(argv[0], "env"))
-		return ();
-	if (!ft_strcmp(argv[0], "exit"))
-		return ();
-	return (127);
-}
+// int	exec_builtin(void)
+// {
+// 	if (!ft_strcmp(argv[0], "echo"))
+// 		return ();
+// 	if (!ft_strcmp(argv[0], "cd"))
+// 		return ();
+// 	if (!ft_strcmp(argv[0], "pwd"))
+// 		return (builtin_pwd());
+// 	if (!ft_strcmp(argv[0], "export"))
+// 		return ();
+// 	if (!ft_strcmp(argv[0], "unset"))
+// 		return ();
+// 	if (!ft_strcmp(argv[0], "env"))
+// 		return ();
+// 	if (!ft_strcmp(argv[0], "exit"))
+// 		return ();
+// 	return (127);
+// }

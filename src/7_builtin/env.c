@@ -14,7 +14,7 @@
 #include "ft_env.h"
 #include "system.h"
 
-int	exec_env(const char *path, char **argv, t_info *info)
+t_status	exec_env(const char *path, char **argv, t_info *info)
 {
 	(void)path;
 	size_t	i;
@@ -27,5 +27,5 @@ int	exec_env(const char *path, char **argv, t_info *info)
 	(void)argv;
 	while (info->envp[i])
 		printf("%s\n", info->envp[i++]);
-	return (0);
+	return (E_NONE);
 }

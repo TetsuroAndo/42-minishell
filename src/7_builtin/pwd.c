@@ -4,9 +4,8 @@
 
 /*
 *ref char * getcwd(char *buf, size_t size);
-返り値はpwdを返すべきか、エラーを返すべきか（グローバル変数でエラーを変更できる？）
 */
-void	builtin_pwd(const char *path, char **argv, t_info *info)
+t_status	builtin_pwd(const char *path, char **argv, t_info *info)
 {
 	(void)path;
 	(void)argv;
@@ -14,7 +13,8 @@ void	builtin_pwd(const char *path, char **argv, t_info *info)
 	if (info->cwd == NULL)
 	{
 		// todo errorハンドリング
-		return ;
+		return E_NONE;
 	}
 	printf("%s\n", info->cwd);
+	return E_NONE;
 }

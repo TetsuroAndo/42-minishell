@@ -3,7 +3,7 @@
 #include "system.h"
 
 
-void builtin_unset(const char *path, char **argv, t_info *info)
+t_status builtin_unset(const char *path, char **argv, t_info *info)
 {
     return;
 }
