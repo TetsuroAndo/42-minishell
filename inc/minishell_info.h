@@ -12,7 +12,7 @@ typedef struct s_info
     t_ast_node ast;//root
     t_btmap env;//root
 
-    char pwd[MAX_WORD_LEN];
+    char *cwd;
 
     /* optional info */
     //t_err exitstatus; //グローバル変数として持てなかったら

@@ -24,6 +24,11 @@
 
 # define PROMPT "minishell> "
 
+
+
+
+
+
 /* signal_setup.c */
 void	init_signals(void);
 

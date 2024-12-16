@@ -24,10 +24,10 @@ typedef struct s_btmap
 //t_btmap *btmap_new();
 void btmap_clear(t_btmap *btmap);
 //keyから値を取得、なかったらNULL
-char *btmap_get(t_btmap env, char *key);
+char *btmap_get(t_btmap *btmap, char *key);
 //key,entityを追加
-char *btmap_export(t_btmap env, char *key, char *val);
+char *btmap_export(t_btmap *btmap, char *key, char *val);
 //keyを削除
-char *btmap_unset(t_btmap env, char *key);
+char *btmap_unset(t_btmap *btmap, char *key);
 
 #endif

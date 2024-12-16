@@ -1,13 +1,18 @@
 #include "ft_env.h"
-
+#include "minishell_info.h"
+#include "ft_builtin.h"
 /*
 *ref char * getcwd(char *buf, size_t size);
 返り値はpwdを返すべきか、エラーを返すべきか（グローバル変数でエラーを変更できる？）
 */
-void builtint_pwd(t_btmap *env)
+void builtint_pwd(const t_info *info)
 {
     //char cwd[MAX_WORD_LEN];
-    char *cwd;
-    cwd = tmap_get(env,"PWD");
-    printf("%d\n", cwd);
+    if (info->cwd == NULL)
+    {
+        //todo errorハンドリング
+        return;
+    }
+    printf("%s\n", info->cwd);
 }
+
