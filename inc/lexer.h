@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:44:20 by teando            #+#    #+#             */
-/*   Updated: 2024/12/16 17:54:51 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/16 18:44:16 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef enum e_token_type
 {
-	TT_WORD,
+	TT_CMD,
 	TT_PIPE,
 	TT_REDIRECT_IN,
 	TT_REDIRECT_OUT,

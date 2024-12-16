@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:47:26 by teando            #+#    #+#             */
-/*   Updated: 2024/12/16 16:47:45 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 08:53:37 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ static t_token	make_token(t_token_type type, const char *value)
 	t_token	tok;
 
 	tok.type = type;
-	tok.value = (value) ? strdup(value) : NULL;
+	tok.value = NULL;
+	if (value)
+		tok.value = strdup(value);
 	return (tok);
 }
 
@@ -213,7 +215,7 @@ t_token	*lexer(const char *input)
 		if (is_special_char(peek_char(&lx)))
 		{
 			c = advance_char(&lx);
-			ttype = TT_WORD;
+			ttype = TT_CMD;
 			if (c == '|')
 				ttype = TT_PIPE;
 			else if (c == '<' || c == '>')
@@ -231,7 +233,7 @@ t_token	*lexer(const char *input)
 							NULL));
 				break ;
 			}
-			tokens = token_list_add(tokens, &count, make_token(TT_WORD, w));
+			tokens = token_list_add(tokens, &count, make_token(TT_CMD, w));
 			free(w);
 		}
 		skip_spaces(&lx);
@@ -241,7 +243,10 @@ t_token	*lexer(const char *input)
 
 void	free_tokens(t_token *tokens)
 {
-	for (int i = 0; tokens[i].type != TT_EOF && tokens[i].type != TT_ERROR; i++)
-		free(tokens[i].value);
+	int	i;
+
+	i = 0;
+	while (tokens[i].type != TT_EOF && tokens[i].type != TT_ERROR)
+		free(tokens[i++].value);
 	free(tokens);
 }
