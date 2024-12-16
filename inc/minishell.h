@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:41:18 by teando            #+#    #+#             */
-/*   Updated: 2024/12/16 01:38:13 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/16 17:53:01 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@
 
 # define PROMPT "minishell> "
 
+/* <----------- 0_core: exec_builtin -----------> */
+int		is_builtin(char *cmd);
+int		exec_builtin(void);
 
-
-
-
-
-/* signal_setup.c */
+/* <----------- 6_signals -----------> */
 void	init_signals(void);
+
+/* <----------- 7_builtin -----------> */
+void	builtin_pwd(const t_info *info);
 
 #endif
