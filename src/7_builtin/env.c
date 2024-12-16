@@ -10,15 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_builtin.h"
+#include "ft_env.h"
+#include "system.h"
 
-int	exec_env(char **argv, char **envp)
+int	exec_env(const char *path, char **argv, t_info *info)
 {
+	(void)path;
 	size_t	i;
-
+	if (info->is_env_updated)
+	{
+		env_update(info->env_map, info->envp);
+		info->is_env_updated = 0;
+	}
 	i = 0;
 	(void)argv;
-	while (envp[i])
-		printf("%s\n", envp[i++]);
+	while (info->envp[i])
+		printf("%s\n", info->envp[i++]);
 	return (0);
 }

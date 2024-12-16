@@ -10,11 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_builtin.h"
+#include "ft_env.h"
+#include "system.h"
 
-int	exec_echo(char **argv)
+void	exec_echo(const char *path, char **argv, t_info *info)
 {
 	int	i;
+	int is_option_n;
+	(void)path;
+	//todo　echoが失敗する場合を調べる
 
 	// argv[0]="echo", argv[1]="arg1", argv[2]="arg2", ...
 	// 基本的には改行付きで残りを出力。-nオプションなどは後で実装可能。
@@ -27,5 +32,4 @@ int	exec_echo(char **argv)
 		i++;
 	}
 	printf("\n");
-	return (0);
 }

@@ -10,12 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_builtin.h"
+#include "ft_env.h"
+#include "system.h"
 
-int	exec_exit(char **argv)
+void	exec_exit(const char *path, char **argv, t_info *info)
 {
 	(void)argv; // 引数未対応だが将来対応可能
-	printf("exit\n");
-	exit(0);
-	return (0); // 実行されない
+	printf("exit\n");//debug ??
+	system_deinit(info);
+	exit(info->status);
 }

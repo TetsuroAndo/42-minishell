@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+static char **builtin_path = {"echo","cd","pwd","export","unset","env","exit"};
 int	is_builtin(char *cmd)
 {
 	if (!cmd)

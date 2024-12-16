@@ -22,7 +22,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-#include "minishell_info.h"
+#include "system.h"
 
 # define PROMPT "minishell> "
 

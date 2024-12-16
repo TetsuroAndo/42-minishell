@@ -1,3 +1,6 @@
+#ifndef FT_AST_H
+#define FT_AST_H
+
 typedef enum e_token_type
 {
 	TOKEN_WORD,
@@ -28,3 +31,6 @@ typedef struct s_ast_node
 /**** funcs ****/
 // parseする関数（汎用的なものはここ、minishellでしか使えないものはft_parse.hに?）
 //走査する関数
+
+
+#endif
