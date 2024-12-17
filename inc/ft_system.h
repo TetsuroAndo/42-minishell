@@ -43,6 +43,10 @@ void			system_deinit(t_info *info);
 
 void			system_exit(t_info *info, t_status status);
 
+
+
+t_status xabsolute_path(char *dstpath, char *srcpath, char *envpathes, int mode);
+
 /**** **** **** ****ALLOCATE**** **** **** ****/
 void	*xmalloc(size_t size, t_info *info);
 t_list	*xlstnew(char* data, t_info *info);

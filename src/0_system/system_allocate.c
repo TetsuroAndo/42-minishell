@@ -45,7 +45,7 @@ t_list	*xlst_from_strs(char **strs, t_info *info)
 char	**xlst_to_strs(t_list *lst, t_info *info)
 {
 	char **strs;
-    strs = ft_lst_to_strs(lst);
+    strs = ft_list_to_strs(lst);
     if(!strs)
         system_exit(info, E_ALLOCATE);
     return strs;
