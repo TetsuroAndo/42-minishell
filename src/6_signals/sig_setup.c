@@ -26,7 +26,8 @@ static void	sigint_handler(int signum)
 	// readline用再描画:
 	// 公式ドキュメントによれば、rl_replace_line("", 0)とrl_on_new_line()、rl_redisplay()で再描画
 	// 現在の行を空行にして、新しいプロンプトへ
-	write(STDOUT_FILENO, "\n", 1);
+	if (write(STDOUT_FILENO, "\n", 1) == -1)
+		return ; // シグナルハンドラ内なのでエラー処理は最小限に
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();

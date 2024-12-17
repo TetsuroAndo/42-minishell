@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:47:26 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 08:53:37 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 12:19:33 by teando           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "lexer.h"
 #include <ctype.h>
@@ -18,27 +18,15 @@
 /*
   補助関数群
 */
-static char	*dup_substr(const char *str, size_t start, size_t len)
-{
-	char	*res;
-
-	res = malloc(len + 1);
-	if (!res)
-		return (NULL);
-	memcpy(res, str + start, len);
-	res[len] = '\0';
-	return (res);
-}
-
-static void	skip_spaces(t_lexer *lx)
+static void skip_spaces(t_lexer *lx)
 {
 	while (isspace((unsigned char)lx->input[lx->pos]))
 		lx->pos++;
 }
 
-static t_token	make_token(t_token_type type, const char *value)
+static t_token make_token(t_token_type type, const char *value)
 {
-	t_token	tok;
+	t_token tok;
 
 	tok.type = type;
 	tok.value = NULL;
@@ -47,19 +35,19 @@ static t_token	make_token(t_token_type type, const char *value)
 	return (tok);
 }
 
-static int	is_special_char(char c)
+static int is_special_char(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
 }
 
-static char	peek_char(t_lexer *lx)
+static char peek_char(t_lexer *lx)
 {
 	return (lx->input[lx->pos]);
 }
 
-static char	advance_char(t_lexer *lx)
+static char advance_char(t_lexer *lx)
 {
-	char	c;
+	char c;
 
 	c = lx->input[lx->pos];
 	if (c != '\0')
@@ -67,9 +55,9 @@ static char	advance_char(t_lexer *lx)
 	return (c);
 }
 
-static t_token_type	check_redirect_type(t_lexer *lx, char first)
+static t_token_type check_redirect_type(t_lexer *lx, char first)
 {
-	char	next;
+	char next;
 
 	// firstは'<'または'>'
 	next = lx->input[lx->pos];
@@ -83,7 +71,9 @@ static t_token_type	check_redirect_type(t_lexer *lx, char first)
 		lx->pos++;
 		return (TT_APPEND);
 	}
-	return ((first == '<') ? TT_REDIRECT_IN : TT_REDIRECT_OUT);
+	if (first == '<')
+		return (TT_REDIRECT_IN);
+	return (TT_REDIRECT_OUT);
 }
 
 /*
@@ -91,9 +81,9 @@ static t_token_type	check_redirect_type(t_lexer *lx, char first)
   クォート開始文字('\'または'"')が来たら、そのクォートが閉じるまで読み込み続ける
   クォートはvalueに含めず除去する
 */
-static char	*read_quoted_word(t_lexer *lx, char quote_char)
+static char *read_quoted_word(t_lexer *lx, char quote_char)
 {
-	size_t	length;
+	size_t length;
 
 	size_t start = lx->pos; // クォート開始後
 	while (peek_char(lx) != '\0' && peek_char(lx) != quote_char)
@@ -107,7 +97,7 @@ static char	*read_quoted_word(t_lexer *lx, char quote_char)
 	length = lx->pos - start;
 	// クォートを閉じる
 	lx->pos++;
-	return (dup_substr(lx->input, start, length));
+	return (ft_substr(lx->input, start, length));
 }
 
 /*
@@ -115,22 +105,19 @@ static char	*read_quoted_word(t_lexer *lx, char quote_char)
   スペース、特殊文字、クォート以外を読み続ける
   クォートがあればクォート内を取得し連結
 */
-static char	*read_word(t_lexer *lx)
+static char *read_word(t_lexer *lx)
 {
-	size_t	start;
-	char	*word;
-	char	*temp;
-	char	quote;
-	char	*quoted_part;
-	size_t	pos_start;
-	size_t	seg_len;
-	char	*segment;
+	char *word;
+	char *temp;
+	char quote;
+	char *quoted_part;
+	size_t pos_start;
+	size_t seg_len;
+	char *segment;
 
-	start = lx->pos;
 	word = NULL;
 	word = strdup(""); // 最初は空文字から始める
-	while (peek_char(lx) != '\0' && !isspace((unsigned char)peek_char(lx))
-		&& !is_special_char(peek_char(lx)))
+	while (peek_char(lx) != '\0' && !isspace((unsigned char)peek_char(lx)) && !is_special_char(peek_char(lx)))
 	{
 		if (peek_char(lx) == '"' || peek_char(lx) == '\'')
 		{
@@ -142,9 +129,7 @@ static char	*read_word(t_lexer *lx)
 				return (NULL); // エラー(未閉クォート)
 			}
 			// quoted_partをwordに連結
-			temp = malloc(strlen(word) + strlen(quoted_part) + 1);
-			strcpy(temp, word);
-			strcat(temp, quoted_part);
+			temp = ft_strjoin(word, quoted_part);
 			free(word);
 			free(quoted_part);
 			word = temp;
@@ -153,33 +138,26 @@ static char	*read_word(t_lexer *lx)
 		{
 			// 通常文字
 			pos_start = lx->pos;
-			while (peek_char(lx) && !isspace((unsigned char)peek_char(lx))
-				&& !is_special_char(peek_char(lx)) && peek_char(lx) != '"'
-				&& peek_char(lx) != '\'')
+			while (peek_char(lx) && !isspace((unsigned char)peek_char(lx)) && !is_special_char(peek_char(lx)) && peek_char(lx) != '"' && peek_char(lx) != '\'')
 			{
 				lx->pos++;
 			}
 			seg_len = lx->pos - pos_start;
-			segment = dup_substr(lx->input, pos_start, seg_len);
-			temp = malloc(strlen(word) + seg_len + 1);
-			strcpy(temp, word);
-			strcat(temp, segment);
+			segment = ft_substr(lx->input, pos_start, seg_len);
+			temp = ft_strjoin(word, segment);
 			free(word);
 			free(segment);
 			word = temp;
 		}
 	}
 	if (strlen(word) == 0)
-	{
-		free(word);
-		return (NULL);
-	}
+		return (free(word), NULL);
 	return (word);
 }
 
-static t_token	*token_list_add(t_token *list, size_t *count, t_token newtok)
+static t_token *token_list_add(t_token *list, size_t *count, t_token newtok)
 {
-	t_token	*res;
+	t_token *res;
 
 	res = realloc(list, sizeof(t_token) * (*count + 2));
 	if (!res)
@@ -193,14 +171,14 @@ static t_token	*token_list_add(t_token *list, size_t *count, t_token newtok)
 	return (res);
 }
 
-t_token	*lexer(const char *input)
+t_token *lexer(const char *input)
 {
-	t_lexer			lx;
-	t_token			*tokens;
-	size_t			count;
-	char			c;
-	t_token_type	ttype;
-	char			*w;
+	t_lexer lx;
+	t_token *tokens;
+	size_t count;
+	char c;
+	t_token_type ttype;
+	char *w;
 
 	tokens = NULL;
 	count = 0;
@@ -229,9 +207,8 @@ t_token	*lexer(const char *input)
 			{
 				// エラー(未閉クォートなど)
 				// エラー時にはTT_ERRORトークンを追加して終了
-				tokens = token_list_add(tokens, &count, make_token(TT_ERROR,
-							NULL));
-				break ;
+				tokens = token_list_add(tokens, &count, make_token(TT_ERROR, NULL));
+				break;
 			}
 			tokens = token_list_add(tokens, &count, make_token(TT_CMD, w));
 			free(w);
@@ -241,9 +218,9 @@ t_token	*lexer(const char *input)
 	return (tokens);
 }
 
-void	free_tokens(t_token *tokens)
+void free_tokens(t_token *tokens)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (tokens[i].type != TT_EOF && tokens[i].type != TT_ERROR)

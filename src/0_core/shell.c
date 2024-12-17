@@ -46,7 +46,8 @@ void	shell_loop(t_shell_info *info)
 		line = read_command_line("minishell> ");
 		if (!line)
 		{
-			write(STDOUT_FILENO, "exit\n", 5);
+			if (write(STDOUT_FILENO, "exit\n", 5) == -1)
+				perror("write error");
 			break ;
 		}
 		// トークナイザを呼び出して入力行をトークン配列に変換
