@@ -1,6 +1,6 @@
 #include "ft_builtin.h"
 #include "ft_env.h"
-#include "system.h"
+#include "ft_system.h"
 
 /*
  *ref char * getcwd(char *buf, size_t size);

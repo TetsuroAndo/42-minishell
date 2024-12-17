@@ -6,13 +6,13 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 15:47:05 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 16:41:28 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 16:54:48 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_builtin.h"
 #include "ft_env.h"
-#include "system.h"
+#include "ft_system.h"
 
 t_status	builtin_env(const char *path, char **argv, t_info *info)
 {

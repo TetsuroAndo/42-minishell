@@ -2,7 +2,7 @@
 # define FT_ENV_H
 
 # include "libft.h"
-# include "system.h"
+# include "ft_system.h"
 # include <stdlib.h>
 
 /**** funcs ****/

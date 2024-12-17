@@ -6,14 +6,15 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:41:18 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 16:36:26 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 16:58:09 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "system.h"
+# include "ft_lexer.h"
+# include "ft_system.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>

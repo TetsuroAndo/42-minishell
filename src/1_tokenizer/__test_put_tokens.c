@@ -1,4 +1,4 @@
-#include "lexer.h"
+#include "ft_lexer.h"
 
 void	print_cmd_tokens(const t_cmd_token *cmds)
 {

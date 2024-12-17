@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:47:26 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 15:40:47 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 16:58:09 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "ft_lexer.h"
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
@@ -221,4 +221,3 @@ t_token	*_lexer(const char *input)
 	}
 	return (tokens);
 }
-

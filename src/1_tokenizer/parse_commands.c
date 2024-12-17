@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "ft_lexer.h"
 #include <stdlib.h>
 #include <string.h>
 

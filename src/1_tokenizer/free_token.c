@@ -6,11 +6,11 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:29:48 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 15:40:50 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 16:58:09 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "ft_lexer.h"
 
 void	free_tokens(t_token *tokens)
 {

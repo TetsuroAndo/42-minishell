@@ -1,45 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   ft_lexer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:44:20 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 16:36:09 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 17:21:24 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# include "minishell.h"
+# include "ft_system.h"
 # include <stddef.h>
-
-typedef enum e_token_type
-{
-	TT_CMD,          // コマンドトークン
-	TT_PIPE,         // パイプ
-	TT_REDIRECT_IN,  // 入力リダイレクト
-	TT_REDIRECT_OUT, // 出力リダイレクト
-	TT_APPEND,       // 追記リダイレクト
-	TT_HEREDOC,      // ヒアドキュメント
-	TT_EOF,          // 終端
-	TT_ERROR         // エラー
-}					t_token_type;
-
-typedef struct s_token
-{
-	t_token_type	type;
-	char			*value;
-}					t_token;
-
-typedef struct s_cmd_token
-{
-	t_token_type type; // CMD or PIPEなど
-	char *path;        // 実行するコマンド(e.g. "echo")
-	char **args;       // 引数列(e.g. {"echo", "a", "b", "c", "d", NULL})
-}					t_cmd_token;
 
 typedef struct s_lexer
 {
