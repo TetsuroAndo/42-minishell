@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 15:47:05 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 16:54:48 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 22:39:27 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,14 @@
 
 t_status	builtin_env(const char *path, char **argv, t_info *info)
 {
-	size_t	i;
+	char	**envp;
 
+	envp = ft_list_to_strs(info->env_map);
+	if (!envp)
+		return (E_ALLOCATE);
+	// 引数がわたされるため、Argvを使用する必要あり
 	(void)path;
-	if (info->is_env_updated)
-	{
-		env_update(info->env_map, info->envp);
-		info->is_env_updated = 0;
-	}
-	i = 0;
 	(void)argv;
-	while (info->envp[i])
-		printf("%s\n", info->envp[i++]);
+	ft_putstrs_fd(envp, "\n", STDOUT_FILENO);
 	return (E_NONE);
 }
