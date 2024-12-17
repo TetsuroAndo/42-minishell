@@ -1,11 +1,7 @@
 #!/bin/bash
-
-echo -e "\n\n\n"
-echo "--------PWD TESTING--------"
-cc *.c -I../../inc -D TEST_PWD -o pwdtest && ./pwdtest && rm ./pwdtest
+echo "--------TESTING--------"
+cc *.c ../9_system/*.c ../5_env/*.c -L.-llibft.a -I../../inc -o test && ./test && rm ./test
 
 
 
 echo -e "\n\n\n"
-echo "--------CD TESTING---------"
-cc *.c -I../../inc -D TEST_CD -o cdtest && ./cdtest && rm ./cdtest
