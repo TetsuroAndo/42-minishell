@@ -6,13 +6,14 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:41:18 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 08:31:39 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 10:56:23 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "minishell_info.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -22,11 +23,23 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-# define PROMPT "minishell> "
+# ifndef PROMPT
+#  define PROMPT "minishell> "
+# endif
 
-/* <----------- 0_core: exec_builtin -----------> */
+typedef struct s_shell_info
+{
+	char *cwd;       // 現在の作業ディレクトリ
+	char **envp;     // 環境変数配列（必要に応じて別の管理方法でも可）
+	int last_status; // 前回実行コマンドの終了ステータス
+						// 他にも必要に応じて構造を拡張
+}		t_shell_info;
+
+/* <----------- 0_core -----------> */
 int		is_builtin(char *cmd);
 int		exec_builtin(void);
+char	*read_command_line(const char *prompt);
+void	shell_loop(t_shell_info *info);
 
 /* <----------- 6_signals -----------> */
 void	init_signals(void);

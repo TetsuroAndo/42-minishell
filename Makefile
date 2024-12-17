@@ -6,7 +6,7 @@
 #    By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/15 18:05:31 by teando            #+#    #+#              #
-#    Updated: 2024/12/16 02:00:55 by teando           ###   ########.fr        #
+#    Updated: 2024/12/17 11:05:39 by teando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,13 @@ IDFLAGS		:= -I$(INCS_DIR) -I$(LIBFT_DIR)
 SRCS 		:= \
 	$(addprefix src/, \
 		$(addprefix 0_core/, \
+			readline.c \
+			shell.c \
 		) \
 		$(addprefix 1_parser/, \
 		) \
 		$(addprefix 2_tokenizer/, \
+			tokenizer.c \
 		) \
 		$(addprefix 3_executor/, \
 		) \

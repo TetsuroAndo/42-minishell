@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 01:34:19 by teando            #+#    #+#             */
-/*   Updated: 2024/12/16 15:54:37 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 10:44:55 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,16 @@
  */
 int	main(int argc, char **argv, char **envp)
 {
-	char	*line;
+	t_shell_info	info;
 
 	(void)argc;
-	(void)argv; // 未使用
-	init_signals();
-	while (1)
-	{
-		line = readline(PROMPT);
-		if (!line) // Ctrl-D対応: readlineがNULLを返したら終了
-		{
-			// 終了処理をここで行う（必要なら）
-			write(STDOUT_FILENO, "exit\n", 5);
-			break ;
-		}
-		// 入力が空でなければヒストリ追加
-		if (*line)
-			add_history(line);
-		// Day1ではここで入力を即座に処理せず、そのまま表示して終わる(テスト用)
-		// 今後lexerやparser実装後にここで処理を呼び出す。
-		// 今は動作確認用
-		// printf("DEBUG: got line: %s\n", line);
-		free(line);
-	}
+	(void)argv;
+	// シェル情報構造体を初期化
+	info.cwd = getcwd(NULL, 0); // カレントディレクトリの取得
+	info.envp = envp;           // とりあえず既存envpをそのまま使う
+	info.last_status = 0;
+	// メインループ開始
+	shell_loop(&info);
+	free(info.cwd);
 	return (0);
 }
