@@ -6,23 +6,22 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:41:18 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 16:58:09 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 19:31:59 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "ft_builtin.h"
+# include "ft_env.h"
+# include "ft_executor.h"
 # include "ft_lexer.h"
+# include "ft_parser.h"
+# include "ft_redirect.h"
+# include "ft_signals.h"
 # include "ft_system.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <unistd.h>
+# include "ft_token.h"
 
 # define PROMPT "minishell> "
 

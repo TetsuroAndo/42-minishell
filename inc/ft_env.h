@@ -1,9 +1,7 @@
 #ifndef FT_ENV_H
 # define FT_ENV_H
 
-# include "libft.h"
 # include "ft_system.h"
-# include <stdlib.h>
 
 /**** funcs ****/
 
@@ -14,4 +12,5 @@ char		*env_get(t_list *env, char *key);
 t_status	env_export(t_list **env, char *ent);
 // keyを削除
 t_status	env_unset(t_list *env, char *key);
+
 #endif

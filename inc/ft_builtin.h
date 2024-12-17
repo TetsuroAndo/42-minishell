@@ -3,8 +3,6 @@
 
 # include "ft_env.h"
 # include "ft_system.h"
-# include <stdio.h>
-# include <stdlib.h>
 
 // wrapper関数の定義　関数ポインタ型の宣言
 typedef t_status	(*builtin_func_t)(const char *path, char **argv,

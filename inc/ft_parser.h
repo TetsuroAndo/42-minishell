@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signals.h                                       :+:      :+:    :+:   */
+/*   ft_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 19:29:46 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 19:30:16 by teando           ###   ########.fr       */
+/*   Created: 2024/12/17 19:27:53 by teando            #+#    #+#             */
+/*   Updated: 2024/12/17 19:30:53 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SIGNALS_H
-# define FT_SIGNALS_H
+#ifndef FT_PARSER_H
+# define FT_PARSER_H
 
-# include "ft_system.h"
+# include "ft_lexer.h"
 
 #endif
