@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 16:53:59 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 21:54:03 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 23:05:11 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ typedef struct s_info
 t_info			*system_init(char **env);
 void			system_deinit(t_info *info);
 void			*xmalloc(size_t size, t_info *info);
-void			*system_exit(t_list *info, t_status status);
+void			system_exit(t_info *info, t_status status);
 
 #endif

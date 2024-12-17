@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 22:01:24 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 22:02:21 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 22:40:29 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "ft_env.h"
 # include "ft_system.h"
+
+t_status			xbuiltin(char *path, char **argv, t_info *info);
 
 // wrapper関数の定義　関数ポインタ型の宣言
 typedef t_status	(*t_builtin_func)(const char *path, char **argv,
