@@ -2,46 +2,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void	print_tokens(t_token *tokens)
+static void print_tokens(t_token *tokens)
 {
-		char *type_str;
+	char *type_str;
 
 	for (int i = 0; tokens[i].type != TT_EOF && tokens[i].type != TT_ERROR; i++)
 	{
 		switch (tokens[i].type)
 		{
-		case TT_WORD:
-			type_str = "WORD";
-			break ;
+		case TT_CMD:
+			type_str = "CMD";
+			break;
 		case TT_PIPE:
 			type_str = "PIPE";
-			break ;
+			break;
 		case TT_REDIRECT_IN:
 			type_str = "REDIRECT_IN";
-			break ;
+			break;
 		case TT_REDIRECT_OUT:
 			type_str = "REDIRECT_OUT";
-			break ;
+			break;
 		case TT_APPEND:
 			type_str = "APPEND";
-			break ;
+			break;
 		case TT_HEREDOC:
 			type_str = "HEREDOC";
-			break ;
+			break;
 		default:
 			type_str = "UNKNOWN";
-			break ;
+			break;
 		}
 		printf("TOKEN: type=%s, value=%s\n", type_str,
-			tokens[i].value ? tokens[i].value : "(null)");
+			   tokens[i].value ? tokens[i].value : "(null)");
 	}
 	if (tokens[0].type == TT_ERROR)
 		printf("ERROR TOKEN DETECTED\n");
 }
 
-static void	test_lexer(const char *input)
+static void test_lexer(const char *input)
 {
-	t_token	*tok;
+	t_token *tok;
 
 	printf("Input: [%s]\n", input);
 	tok = lexer(input);
@@ -50,7 +50,7 @@ static void	test_lexer(const char *input)
 	printf("----\n");
 }
 
-int	main(void)
+int main(void)
 {
 	// [#2-1] 基本トークナイザテスト
 	test_lexer("echo hello world");
