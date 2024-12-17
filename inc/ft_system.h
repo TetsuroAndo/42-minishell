@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 16:53:59 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 19:25:00 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 19:33:48 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,11 @@ typedef struct s_info
 	t_list *env_map;    //線形リストのhead
 	char **envp;        // envpのポインタ配列
 	int is_env_updated; // envpが最新のものかどうか
-	char	cwd[MAX_WORD_LEN];
-	t_status status; //グローバル変数として持てなかったら
-	char	*pathes;
-	int		is_pathes_update;
-	/* optional info */
-}			t_info;
+	char		cwd[MAX_WORD_LEN];
+	t_status	status;
+}				t_info;
 
-t_info		*system_init(char **env);
-void		system_deinit(t_info *info);
+t_info			*system_init(char **env);
+void			system_deinit(t_info *info);
 
 #endif
