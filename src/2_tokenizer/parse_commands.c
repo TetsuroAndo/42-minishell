@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:50:22 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 14:10:52 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 14:27:36 by teando           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -73,7 +73,6 @@ t_cmd_token *parse_commands(t_token *tokens)
                     free(arg_list);
                 }
             }
-
             // PIPEコマンド挿入
             t_cmd_token pipe_cmd;
             memset(&pipe_cmd, 0, sizeof(pipe_cmd));
