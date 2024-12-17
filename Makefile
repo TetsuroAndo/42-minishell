@@ -6,7 +6,7 @@
 #    By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/15 18:05:31 by teando            #+#    #+#              #
-#    Updated: 2024/12/17 11:14:22 by teando           ###   ########.fr        #
+#    Updated: 2024/12/17 11:18:08 by teando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,8 +78,8 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
-	
-$(LIBFT_DIR)/Makefile :
+
+$(LIBFT_DIR)/Makefile:
 	git submodule update --init --recursive
 
 sub:
