@@ -24,8 +24,10 @@ void	system_deinit(t_info *info)
 	if (!info)
 		return ;
 	free(info->source_line);
-	ft_lstclear(&info->token_list,free);
-	ft_lstclear(&info->env_map, free);
+	if (!info->token_list)
+		ft_lstclear(&info->token_list,free);
+	if (!info->env_map)
+		ft_lstclear(&info->env_map, free);
 	// ast_clear(info->ast);
 	free(info);
 }

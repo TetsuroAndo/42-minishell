@@ -10,7 +10,7 @@ static t_list *_get_ptr(const t_list *env, const char *key)
 
 static char *_get_key(char *ent)
 {
-    static char key[MAX_WORD_LEN];
+    static char key[MAX_PATH];
     int index = 0;
     //char *delimiter = ft_strchr(ent, '=');
     while(ent[index] && ent[index] != '=')
@@ -52,13 +52,13 @@ t_status env_export(t_list **env, char *ent)
     lst_ptr = _get_ptr(env,key);
     if (lst_ptr)//すでに存在する場合上書き
     {
-        lst_ptr->content = ent;//strdupするかしないか
+        lst_ptr->data = ent;//strdupするかしないか
         return E_NONE;
     }
     lst_ptr = ft_lstnew(ent);
     if (!lst_ptr)
         return E_ALLOCATE;
-    lst_ptr->content = ent;
+    lst_ptr->data = ent;
     lst_ptr->next = NULL;
     ft_lstadd_back(env, lst_ptr);
     return E_NONE;
