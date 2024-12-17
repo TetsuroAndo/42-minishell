@@ -26,13 +26,13 @@
 
 # define MAX_PATH 2048
 // # define MAX_FD 1024
-// minishell.hと分けなくても良いかもしれないけど
-//他のdirでこっちinfo.hはincludeできるけだminishell.hはinclude禁止にするとテストが捗りそう
 
 typedef struct s_info
 {
-	t_ast_node *ast; // root
-	t_list *env_map; //線形リストのhead
+	char *source_line;
+	t_list *token_list;
+	t_ast_node *ast;
+	t_list *env_map;
 	char		cwd[MAX_PATH];
 	// int			files[MAX_FD];
 	t_status	status;
@@ -40,7 +40,13 @@ typedef struct s_info
 
 t_info			*system_init(char **env);
 void			system_deinit(t_info *info);
-void			*xmalloc(size_t size, t_info *info);
+
 void			system_exit(t_info *info, t_status status);
+
+/**** **** **** ****ALLOCATE**** **** **** ****/
+void	*xmalloc(size_t size, t_info *info);
+t_list	*xlstnew(char* data, t_info *info);
+t_list	*xlst_from_strs(char **strs, t_info *info);
+char	**xlst_to_strs(t_list *lst, t_info *info);
 
 #endif
