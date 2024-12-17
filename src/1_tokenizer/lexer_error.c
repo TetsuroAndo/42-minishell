@@ -1,29 +1,23 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_quote.c                                      :+:      :+:    :+:   */
+/*   lexer_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 00:52:34 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 00:52:35 by teando           ###   ########.fr       */
+/*   Created: 2024/12/18 00:51:53 by teando            #+#    #+#             */
+/*   Updated: 2024/12/18 00:51:54 by teando           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "ft_lexer.h"
 #include "libft.h"
 
-char *read_quoted_word(t_lexer *lx, char quote)
+t_list *add_error_token(t_list *tokens)
 {
-	size_t start;
-	char *res;
+	t_token err;
 
-	start = lx->pos;
-	while (lx->input[lx->pos] && lx->input[lx->pos] != quote)
-		lx->pos++;
-	if (!lx->input[lx->pos])
-		return (NULL);
-	res = ft_substr(lx->input, start, lx->pos - start);
-	lx->pos++;
-	return (res);
+	err = make_token(TT_ERROR, NULL);
+	tokens = token_list_add(tokens, err);
+	return (tokens);
 }

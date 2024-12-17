@@ -1,31 +1,20 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_token.c                                      :+:      :+:    :+:   */
+/*   lexer_check_redirect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 19:56:39 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 19:56:48 by teando           ###   ########.fr       */
+/*   Created: 2024/12/18 00:51:46 by teando            #+#    #+#             */
+/*   Updated: 2024/12/18 00:51:46 by teando           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "ft_lexer.h"
 
-t_token	make_token(t_token_type type, const char *value)
+t_token_type check_redirect_type(t_lexer *lx, char first)
 {
-	t_token	tok;
-
-	tok.type = type;
-	tok.value = NULL;
-	if (value)
-		tok.value = strdup(value);
-	return (tok);
-}
-
-t_token_type	check_redirect_type(t_lexer *lx, char first)
-{
-	char	next;
+	char next;
 
 	next = lx->input[lx->pos];
 	if (first == '<' && next == '<')

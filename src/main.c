@@ -14,12 +14,12 @@
 
 extern void init_signals(void);
 
-void print_cmd_tokens(const t_cmd_token *cmds);
+void print_tokens(const t_token *tokens);
 
 void shell_loop(t_info *info)
 {
 	char *line;
-	t_cmd_token *cmds;
+	t_token *tokens;
 
 	(void)info;
 	init_signals();
@@ -31,12 +31,12 @@ void shell_loop(t_info *info)
 			ft_dprintf(STDOUT_FILENO, "exit\n");
 			break;
 		}
-		cmds = lexer(line);
+		tokens = lexer(line);
 		free(line);
-		if (!cmds)
+		if (!tokens)
 			continue;
-		print_cmd_tokens(cmds);
-		free_cmds(cmds);
+		print_tokens(tokens);
+		free_tokens(tokens);
 	}
 }
 
@@ -47,12 +47,7 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	// シェル情報構造体を初期化
-	// info.cwd = getcwd(NULL, 0); // カレントディレクトリの取得
-	// info.envp = envp;           // とりあえず既存envpをそのまま使う
-	// info.last_status = 0;
-	// メインループ開始
+	ft_memset(&info, 0, sizeof(t_info));
 	shell_loop(&info);
-	free(info.cwd);
 	return (0);
 }
