@@ -13,13 +13,13 @@
 #include "ft_lexer.h"
 #include "libft.h"
 
-void skip_spaces(t_lexer *lx)
+void	skip_spaces(t_lexer *lx)
 {
 	while (lx->input[lx->pos] && ft_isspace((unsigned char)lx->input[lx->pos]))
 		lx->pos++;
 }
 
-int is_special_char(char c)
+int	is_special_char(char c)
 {
 	if (c == '|' || c == '<' || c == '>')
 		return (1);

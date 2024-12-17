@@ -12,7 +12,7 @@
 
 #include "ft_lexer.h"
 
-t_token_type check_redirect_type(t_lexer *lx, char first)
+t_token_type	check_redirect_type(t_lexer *lx, char first)
 {
 	char next;
 

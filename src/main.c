@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 16:45:19 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 00:02:17 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 01:07:08 by teando           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,12 +14,12 @@
 
 extern void init_signals(void);
 
-void print_tokens(const t_token *tokens);
+void print_tokens(const t_list *tokens);
 
 void shell_loop(t_info *info)
 {
 	char *line;
-	t_token *tokens;
+	t_list *tokens;
 
 	(void)info;
 	init_signals();
@@ -36,7 +36,7 @@ void shell_loop(t_info *info)
 		if (!tokens)
 			continue;
 		print_tokens(tokens);
-		free_tokens(tokens);
+		ft_lstclear(&tokens, free_token);
 	}
 }
 

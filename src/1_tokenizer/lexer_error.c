@@ -13,9 +13,9 @@
 #include "ft_lexer.h"
 #include "libft.h"
 
-t_list *add_error_token(t_list *tokens)
+t_list	*add_error_token(t_list *tokens)
 {
-	t_token err;
+	t_token	err;
 
 	err = make_token(TT_ERROR, NULL);
 	tokens = token_list_add(tokens, err);

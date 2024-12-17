@@ -21,17 +21,24 @@ static const char *get_token_type_str(t_token_type type)
 	return ("EOF");
 }
 
-void print_tokens(const t_token *tokens)
+void print_tokens(const t_list *tokens)
 {
 	int i;
+	const t_list *current;
+	const t_token *token;
 
 	i = 0;
-	while (tokens[i].type != TT_EOF)
+	current = tokens;
+	while (current)
 	{
-		ft_printf("Token[%d]: type=%s", i, get_token_type_str(tokens[i].type));
-		if (tokens[i].value)
-			ft_printf(", value='%s'", tokens[i].value);
+		token = (const t_token *)current->data;
+		ft_printf("Token[%d]: type=%s", i, get_token_type_str(token->type));
+		if (token->value)
+			ft_printf(", value='%s'", token->value);
 		ft_printf("\n");
+		if (token->type == TT_EOF)
+			break;
+		current = current->next;
 		i++;
 	}
 }

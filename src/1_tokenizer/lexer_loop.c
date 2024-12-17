@@ -56,5 +56,7 @@ t_list *lexer_loop(t_lexer *lx)
 			return (NULL);
 		skip_spaces(lx);
 	}
+	/* 終了トークン(TT_EOF)を追加しておくと便利な場合はここで追加 */
+	ts = token_list_add(ts, make_token(TT_EOF, NULL));
 	return (ts);
 }

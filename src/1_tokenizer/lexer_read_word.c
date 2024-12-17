@@ -13,7 +13,7 @@
 #include "ft_lexer.h"
 #include "libft.h"
 
-static char *append_str(char *orig, char *add)
+static char	*append_str(char *orig, char *add)
 {
 	char *tmp;
 
@@ -23,28 +23,31 @@ static char *append_str(char *orig, char *add)
 	return (tmp);
 }
 
-static char *read_normal_segment(t_lexer *lx)
+static char	*read_normal_segment(t_lexer *lx)
 {
-	size_t start;
-	char *seg;
+	size_t	start;
+	char	*seg;
 
 	start = lx->pos;
-	while (lx->input[lx->pos] && !ft_isspace((unsigned char)lx->input[lx->pos]) && lx->input[lx->pos] != '"' && lx->input[lx->pos] != '\'' && !is_special_char(lx->input[lx->pos]))
+	while (lx->input[lx->pos] && !ft_isspace((unsigned char)lx->input[lx->pos])
+		&& lx->input[lx->pos] != '"' && lx->input[lx->pos] != '\''
+		&& !is_special_char(lx->input[lx->pos]))
 		lx->pos++;
 	seg = ft_substr(lx->input, start, lx->pos - start);
 	return (seg);
 }
 
-char *read_word(t_lexer *lx)
+char	*read_word(t_lexer *lx)
 {
-	char *word;
-	char *part;
-	char q;
+	char	*word;
+	char	*part;
+	char	q;
 
 	word = ft_strdup("");
 	if (!word)
 		return (NULL);
-	while (lx->input[lx->pos] && !ft_isspace((unsigned char)lx->input[lx->pos]) && !is_special_char(lx->input[lx->pos]))
+	while (lx->input[lx->pos] && !ft_isspace((unsigned char)lx->input[lx->pos])
+		&& !is_special_char(lx->input[lx->pos]))
 	{
 		if (lx->input[lx->pos] == '"' || lx->input[lx->pos] == '\'')
 		{

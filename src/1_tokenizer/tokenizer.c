@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:53:32 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 00:53:35 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 01:06:42 by teando           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,16 +19,13 @@ static void init_lexer(t_lexer *lx, const char *input)
 	lx->pos = 0;
 }
 
-t_token *lexer(const char *input)
+/* lexerは入力文字列を受け取り、トークン(t_list*)を返す */
+t_list *lexer(const char *input)
 {
 	t_lexer lx;
 	t_list *tokens;
-	t_token *arr;
 
 	init_lexer(&lx, input);
 	tokens = lexer_loop(&lx);
-	if (!tokens)
-		return (NULL);
-	arr = token_list_finalize(tokens);
-	return (arr);
+	return (tokens);
 }
