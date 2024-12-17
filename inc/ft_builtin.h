@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_builtin.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/17 22:01:24 by teando            #+#    #+#             */
+/*   Updated: 2024/12/17 22:02:21 by teando           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_BUILTIN_H
 # define FT_BUILTIN_H
 
@@ -5,7 +17,7 @@
 # include "ft_system.h"
 
 // wrapper関数の定義　関数ポインタ型の宣言
-typedef t_status	(*builtin_func_t)(const char *path, char **argv,
+typedef t_status	(*t_builtin_func)(const char *path, char **argv,
 		t_info *info);
 
 // static char **builtin_path = {"echo","cd","pwd","export","unset","env","exit"};

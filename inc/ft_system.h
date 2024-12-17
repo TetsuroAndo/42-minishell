@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 16:53:59 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 19:33:48 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 21:54:03 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,23 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-# define MAX_WORD_LEN 2048
+# define MAX_PATH 2048
+// # define MAX_FD 1024
 // minishell.hと分けなくても良いかもしれないけど
 //他のdirでこっちinfo.hはincludeできるけだminishell.hはinclude禁止にするとテストが捗りそう
 
 typedef struct s_info
 {
-	t_ast_node *ast;    // root
-	t_list *env_map;    //線形リストのhead
-	char **envp;        // envpのポインタ配列
-	int is_env_updated; // envpが最新のものかどうか
-	char		cwd[MAX_WORD_LEN];
+	t_ast_node *ast; // root
+	t_list *env_map; //線形リストのhead
+	char		cwd[MAX_PATH];
+	// int			files[MAX_FD];
 	t_status	status;
 }				t_info;
 
 t_info			*system_init(char **env);
 void			system_deinit(t_info *info);
+void			*xmalloc(size_t size, t_info *info);
+void			*system_exit(t_list *info, t_status status);
 
 #endif
