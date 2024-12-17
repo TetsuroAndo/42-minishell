@@ -25,7 +25,7 @@ typedef struct s_info
     int is_env_updated;//envpが最新のものかどうか
 
 
-    char *cwd;
+    char cwd[MAX_WORD_LEN];
     t_status status; //グローバル変数として持てなかったら
 
     /* optional info */

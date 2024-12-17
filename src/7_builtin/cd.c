@@ -24,7 +24,7 @@ t_status builtin_cd(const char *path, char **argv, t_info *info)
     //btmap_export(env,"PWD", absolute_path);
     //optional OLDPWDを更新する
     //btmap_export(env,"OLDPWD", info->cwd);
-    info->cwd = ft_strdup(path);
+    ft_strlcpy(info->cwd, path, MAX_WORD_LEN);
     info->is_env_updated = 1;
     return E_NONE;
 }

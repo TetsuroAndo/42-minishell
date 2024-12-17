@@ -1,18 +1,19 @@
 #include "system.h"
 
+
 t_info *system_init(char **envp)
 {
     t_info *info = malloc(sizeof(t_info));
     if (!info)
         return NULL;
     info->ast = NULL;
-    info->env_map = ft_lstnew;
-    env_update();
-    info->is_env_updated = 0;
-    info->cwd = malloc(sizeof(char) * MAX_WORD_LEN);
-    getcwd(info->cwd);
-    if(!info->ast || !info->env_map || !info->cwd)
-        return NULL;
+    info->env_map = NULL;//ft_lstnew;
+    info->envp = NULL;
+    info->is_env_updated = 1;
+    // info->cwd = malloc(sizeof(char) * MAX_WORD_LEN);
+    getcwd(info->cwd, MAX_WORD_LEN);
+    // if(!info->ast || !info->env_map || !info->cwd)
+    //     return NULL;
     return info;
 }
 

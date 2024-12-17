@@ -3,18 +3,24 @@
 
 
 
-static t_list *_get_ptr(t_list *env, char *key)
+static t_list *_get_ptr(const t_list *env, const char *key)
 {
     
 }
 
 static char *_get_key(char *ent)
 {
-    char *key;
-    char *delimiter = ft_strchr(ent, '=');
+    static char key[MAX_WORD_LEN];
+    int index = 0;
+    //char *delimiter = ft_strchr(ent, '=');
+    while(ent[index] && ent[index] != '=')
+    {
+        key[index] = ent[index];
+    }
+    
 
 
-    return ;
+    return key;
 }
 /*
 *keyの有効性を確かめる
@@ -38,7 +44,7 @@ char *env_get(t_list *env, char *key)
 
 t_status env_export(t_list **env, char *ent)
 {
-    char key[MAX_WORD_LEN];
+    char *key;
     key = _get_key(ent);
     if (!key)
         return E_ENV_KEY;
@@ -53,6 +59,7 @@ t_status env_export(t_list **env, char *ent)
     if (!lst_ptr)
         return E_ALLOCATE;
     lst_ptr->content = ent;
+    lst_ptr->next = NULL;
     ft_lstadd_back(env, lst_ptr);
     return E_NONE;
 }
@@ -71,6 +78,7 @@ t_status env_unset(t_list *env, char *key)
     {
         env = env->next;
     }
+    //tdo linledListのheadを削除するとセグフォになりそう
     env->next = lst_ptr->next;
     ft_lstdelone(lst_ptr,free);
     return E_NONE;
