@@ -38,7 +38,7 @@ typedef struct s_info
 	t_status	status;
 }				t_info;
 
-t_info			*system_init(char **env);
+t_info			*system_init();
 void			system_deinit(t_info *info);
 
 void			system_exit(t_info *info, t_status status);

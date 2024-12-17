@@ -26,7 +26,8 @@ int	main(int argc, char const **argv, char **env)
 
 	// info.cwd = malloc(256);
 	// getcwd(info.cwd,256);
-	info = system_init(env);
+	info = system_init();
+	info->env_map = xlst_from_strs(env,info);
 	xbuiltin("echo", av, info);
 	// test_cd(info);
 	system_deinit(info);

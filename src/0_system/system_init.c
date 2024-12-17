@@ -1,6 +1,6 @@
 #include "ft_system.h"
 
-t_info	*system_init(char **envp)
+t_info	*system_init()
 {
 	t_info	*info;
 
