@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 16:45:19 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 17:35:49 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 20:56:28 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,11 @@ void	shell_loop(t_info *info)
 			break ;
 		}
 		cmds = get_parsed_commands_line(line);
+		free(line);
 		if (!cmds)
-		{
-			free(line);
 			continue ;
-		}
 		print_cmd_tokens(cmds);
 		free_cmds(cmds);
-		free(line);
 	}
 }
 

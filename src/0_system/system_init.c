@@ -8,13 +8,12 @@ t_info	*system_init(char **envp)
 	if (!info)
 		return (NULL);
 	info->ast = NULL;
-	info->env_map = NULL; // ft_lstnew;
-	info->envp = NULL;
-	info->is_env_updated = 1;
-	// info->cwd = malloc(sizeof(char) * MAX_WORD_LEN);
-	getcwd(info->cwd, MAX_WORD_LEN);
-	// if(!info->ast || !info->env_map || !info->cwd)
-	//     return (NULL);
+	info->env_map = ft_list_from_strs(envp);
+	// ft_bzero(info->files, MAX_FD * sizeof(int));
+	info->status = E_NONE;
+	getcwd(info->cwd, MAX_PATH);
+	if (!info->ast || !info->env_map)
+		exit(NULL);
 	return (info);
 }
 

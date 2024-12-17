@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   system_exit.c                                      :+:      :+:    :+:   */
+/*   system_allocate.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 21:27:54 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 21:28:05 by teando           ###   ########.fr       */
+/*   Created: 2024/12/17 21:27:29 by teando            #+#    #+#             */
+/*   Updated: 2024/12/17 21:27:38 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_system.h"
 
-void	*system_exit(t_list *info, t_status status)
+void	*xmalloc(size_t size, t_info *info)
 {
-	system_deinit(info);
-	exit(status);
+	char	*memory;
+
+	memory = malloc(size);
+	if (!memory)
+	{
+		system_exit(info, E_ALLOCATE);
+	}
+	return ((void *)memory);
 }
