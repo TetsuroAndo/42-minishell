@@ -23,22 +23,25 @@ static const char *get_token_type_str(t_token_type type)
 
 void print_tokens(const t_list *tokens)
 {
-	int i;
-	const t_list *current;
-	const t_token *token;
+	t_token *token;
 
-	i = 0;
-	current = tokens;
-	while (current)
+	if (!tokens)
 	{
-		token = (const t_token *)current->data;
-		ft_printf("Token[%d]: type=%s", i, get_token_type_str(token->type));
-		if (token->value)
-			ft_printf(", value='%s'", token->value);
-		ft_printf("\n");
-		if (token->type == TT_EOF)
-			break;
-		current = current->next;
-		i++;
+		printf("No tokens to print\n");
+		return;
+	}
+	while (tokens)
+	{
+		if (!tokens->data)
+		{
+			printf("Warning: NULL token data encountered\n");
+			tokens = tokens->next;
+			continue;
+		}
+		token = (t_token *)tokens->data;
+		printf("Token = {type: %s, value: \"%s\"}\n",
+			   get_token_type_str(token->type),
+			   (token->value) ? token->value : "(null)");
+		tokens = tokens->next;
 	}
 }
