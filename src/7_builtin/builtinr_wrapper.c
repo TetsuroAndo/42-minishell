@@ -6,11 +6,12 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 22:00:28 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 22:03:32 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 22:47:06 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_builtin.h"
+#include "ft_system.h"
 
 // ビルトイン関数を実行する
 t_status	xbuiltin(char *path, char **argv, t_info *info)

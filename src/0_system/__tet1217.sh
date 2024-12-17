@@ -1,0 +1,1 @@
+cc *.c -I../../inc -I../../lib/libft ../../lib/libft/libft.a

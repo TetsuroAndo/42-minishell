@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   system_exit.c                                      :+:      :+:    :+:   */
+/*   __main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 21:27:54 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 23:05:08 by teando           ###   ########.fr       */
+/*   Created: 2024/12/17 22:51:27 by teando            #+#    #+#             */
+/*   Updated: 2024/12/17 23:31:33 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_system.h"
 
-void	system_exit(t_info *info, t_status status)
-{
-	system_deinit(info);
-	exit(status);
-}
+// int	main(int ac, char **av, char **envp)
+// {
+// 	t_info	*info;
+// 	char	**envcp;
+
+// 	printf("%s\n", envp[0]);
+// 	info = system_init(envp);
+// 	envcp = ft_list_to_strs(info->env_map);
+// 	ft_putstrs_fd(envcp, "\n", STDOUT_FILENO);
+// 	ft_strs_clear(envcp);
+// 	system_exit(info, 0);
+// }

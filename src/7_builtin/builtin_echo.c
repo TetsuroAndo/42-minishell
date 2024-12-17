@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 15:48:32 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 16:54:48 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/17 23:36:48 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@ t_status	builtin_echo(const char *path, char **argv, t_info *info)
 	// argv[0]="echo", argv[1]="arg1", argv[2]="arg2", ...
 	// 基本的には改行付きで残りを出力。-nオプションなどは後で実装可能。
 	i = 1;
-	while (argv[i])
-	{
-		printf("%s", argv[i]);
-		if (argv[i + 1])
-			printf(" ");
-		i++;
-	}
-	printf("\n");
+	ft_putstrs_fd(&argv[1], " ", STDOUT_FILENO);
 	return (E_NONE);
 }

@@ -21,12 +21,14 @@ int	test_cd(t_info *info)
 
 int	main(int argc, char const **argv, char **env)
 {
-	t_info	*info;
+	t_info		*info;
+	static char	*av[5] = {"echo", "abc", "def", NULL};
 
 	// info.cwd = malloc(256);
 	// getcwd(info.cwd,256);
 	info = system_init(env);
-	test_cd(info);
+	xbuiltin("echo", av, info);
+	// test_cd(info);
 	system_deinit(info);
 	return (0);
 }
