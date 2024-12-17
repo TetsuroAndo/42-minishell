@@ -6,7 +6,7 @@
 #    By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/15 18:05:31 by teando            #+#    #+#              #
-#    Updated: 2024/12/17 11:05:39 by teando           ###   ########.fr        #
+#    Updated: 2024/12/17 11:14:22 by teando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ all: $(NAME)
 $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBFT) -o $@
 
-$(LIBFT): | $(LIBFT_DIR)/.init-stamp
+$(LIBFT): | $(LIBFT_DIR)/Makefile
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(OUT_DIR)/%.o: $(ROOT_DIR)/%.c
@@ -79,9 +79,8 @@ fclean: clean
 
 re: fclean all
 	
-$(LIBFT_DIR)/.init-stamp :
+$(LIBFT_DIR)/Makefile :
 	git submodule update --init --recursive
-	touch $@
 
 sub:
 	git submodule update --remote
