@@ -12,6 +12,7 @@ obj
 outs
 objs
 env
+minishell
 /lib/libft/
 
 # Created by https://www.toptal.com/developers/gitignore/api/c
