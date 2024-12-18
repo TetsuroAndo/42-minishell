@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:44:20 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 18:52:30 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 19:15:54 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,33 @@ typedef struct s_lexer
 t_status		xlexer(t_info *info);
 
 /* <---------------- 内部用プロトタイプ ----------------> */
-/* lexer_loop.c */
-t_list			*lexer_loop(t_lexer *lx);
 
-/* lexer_utils.c */
-void			skip_spaces(t_lexer *lx);
-int				is_special_char(char c);
-
-/* lexer_read_word.c */
-char			*read_word(t_lexer *lx);
-
-/* lexer_quote.c */
-char			*read_quoted_word(t_lexer *lx, char quote);
-
-/* lexer_token_manage.c */
-t_token			make_token(t_token_type type, const char *val);
-void			free_token(void *content);
-t_list			*token_list_add(t_list *lst, t_token tk);
+/* lexer_cmd_token*/
+t_status		convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info);
 
 /* lexer_error.c */
 t_list			*add_error_token(t_list *tokens);
 
+/* lexer_loop.c */
+t_list			*lexer_loop(t_lexer *lx);
+
+/* lexer_quote.c */
+char			*read_quoted_word(t_lexer *lx, char quote);
+
+/* lexer_read_word.c */
+char			*read_word(t_lexer *lx);
+
+/* lexer_token_manage.c */
+t_token			make_token(t_token_type type, const char *val);
+void			free_token(void *content);
+
+/* lexer_utils.c */
+void			skip_spaces(t_lexer *lx);
+int				is_special_char(char c);
+t_list			*token_list_add(t_list *lst, t_token tk);
+
 /* lexer_wildcards */
 void			expand_wildcards(t_list **tokens, t_info *info);
-
-/* lexer_cmd_token*/
-t_status		convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info);
 
 // test
 void			print_cmd_tokens(const t_list *tokens);

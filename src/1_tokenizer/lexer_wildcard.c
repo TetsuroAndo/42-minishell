@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:57:03 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 18:08:46 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 19:08:34 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include <dirent.h>
 #include <fnmatch.h>
 
+/**
+ * @brief ワイルドカードの展開結果をt_cmd_tokenのt_listに変換
+ *
+ * @param[in] matches ワイルドカードの展開結果
+ *
+ * @retval t_list *t_cmd_tokenのt_list
+ */
 static t_list	*create_cmd_token_list_from_matches(char **matches)
 {
 	t_list	*lst;
@@ -68,6 +75,20 @@ static char	**wildcard_match(const char *pattern, t_info *info)
 	return (res);
 }
 
+/**
+ * @brief トークン列*tokensに含まれるワイルドカードを展開
+ *
+ * @details
+ * トークン列*tokensに含まれるワイルドカードを展開
+ * TT_CMDトークンでありワイルドカード(*)を含むトークンのみを対象
+ * ワイルドカードを展開してt_listにまとめ、ttokensの該当位置に挿入
+ * その後、次のトークンを処理
+ *
+ * @param[in] tokens トークン列
+ * @param[in] info t_info *
+ *
+ * @retval なし
+ */
 void	expand_wildcards(t_list **tokens, t_info *info)
 {
 	t_list	*cur;

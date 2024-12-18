@@ -6,13 +6,26 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:51:46 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 18:48:52 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 19:15:46 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lexer.h"
 #include "ft_system.h"
 
+/**
+ * @brief t_cmd_token *cmdを生成
+ *
+ * @details
+ * t_cmd_token *cmdを生成
+ * type, path, argsをメンバ変数に保持
+ *
+ * @param[in] type t_token_type
+ * @param[in] path const char *
+ * @param[in] args const char **
+ *
+ * @retval t_cmd_token *cmd
+ */
 static t_cmd_token	*create_cmd_token(t_token_type type, char *path,
 		char **args)
 {
@@ -27,6 +40,16 @@ static t_cmd_token	*create_cmd_token(t_token_type type, char *path,
 	return (cmd);
 }
 
+/**
+ * @brief t_cmd_token *cmdをt_info *info->token_listに追加
+ *
+ * @details
+ * t_cmd_token *cmdをt_info *info->token_listに追加
+ * ft_lstnew()できなかった場合、cmd->path, cmd->args,
+ * cmdをfreeし、system_exit()を呼びE_ALLOCATEをセット
+ * @param[in] info t_info *
+ * @param[in] cmd t_cmd_token *
+ */
 static void	add_cmd_token_to_info(t_info *info, t_cmd_token *cmd)
 {
 	t_list	*node;
@@ -46,6 +69,21 @@ static void	add_cmd_token_to_info(t_info *info, t_cmd_token *cmd)
 	ft_lstadd_back(&info->token_list, node);
 }
 
+/**
+ * @brief トークン列tokensをt_cmd_token列info->token_listに変換
+ *
+ * @details
+ * トークン列tokensをt_cmd_token列info->token_listに変換
+ * TT_CMD, TT_PIPE, TT_AND_AND, TT_OR_OR, TT_LPAREN, TT_RPAREN
+ * のみを対象とし、TT_REDIRECT系やTT_EOF, TT_ERRORはパーサー段階で扱う
+ * ここでは簡易的にスキップもしくはエラー処理を行う
+ *
+ * @param[in] tokens トークン列
+ * @param[in] info t_info *
+ *
+ * @retval E_NONE 正常
+ * @retval E_ALLOCATE メモリーの割り当てに失敗
+ */
 t_status	convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info)
 {
 	t_list		*cur;
@@ -59,7 +97,6 @@ t_status	convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info)
 	t_cmd_token	*cmd;
 	size_t		i;
 
-	i = 0;
 	cur = tokens;
 	while (cur)
 	{
@@ -76,11 +113,13 @@ t_status	convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info)
 			}
 			args = xmalloc(sizeof(char *) * (count + 1), info);
 			tmpp = start;
+			i = 0;
 			while (i < count)
 			{
 				ctk = (t_token *)tmpp->data;
-				args[i++] = ft_strdup(ctk->value);
+				args[i] = ft_strdup(ctk->value);
 				tmpp = tmpp->next;
+				i++;
 			}
 			args[count] = NULL;
 			path = ft_strdup(args[0]);
