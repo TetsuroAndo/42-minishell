@@ -18,12 +18,10 @@ t_status	builtin_env(const char *path, char **argv, t_info *info)
 {
 	char	**envp;
 
-	envp = ft_list_to_strs(info->env_map);
-	if (!envp)
-		return (E_ALLOCATE);
-	// 引数がわたされるため、Argvを使用する必要あり
+	envp = xlst_to_strs(info->env_map,info);
 	(void)path;
 	(void)argv;
 	ft_putstrs_fd(envp, "\n", STDOUT_FILENO);
+	ft_strs_clear(envp);
 	return (E_NONE);
 }

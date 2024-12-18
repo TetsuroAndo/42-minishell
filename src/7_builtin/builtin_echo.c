@@ -24,6 +24,6 @@ t_status	builtin_echo(const char *path, char **argv, t_info *info)
 	// argv[0]="echo", argv[1]="arg1", argv[2]="arg2", ...
 	// 基本的には改行付きで残りを出力。-nオプションなどは後で実装可能。
 	i = 1;
-	ft_putstrs_fd(&argv[1], " ", STDOUT_FILENO);
+	ft_putstrs_endl_fd(&argv[1], " ", STDOUT_FILENO);
 	return (E_NONE);
 }

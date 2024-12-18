@@ -17,3 +17,4 @@ void	system_exit(t_info *info, t_status status)
 	system_deinit(info);
 	exit(status);
 }
+
