@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:51:46 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 21:47:42 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 22:59:01 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,6 @@ static t_status	process_redirect_file(t_info *info, t_list **cur)
 	{
 		file_tk = (t_token *)(*cur)->data;
 		file_args = xmalloc(sizeof(char *) * 2, info);
-		if (!file_args)
-			return (E_ALLOCATE);
 		file_args[0] = ft_strdup(file_tk->value);
 		file_args[1] = NULL;
 		cmd = create_cmd_token(info, TT_CMD, ft_strdup(file_args[0]),
