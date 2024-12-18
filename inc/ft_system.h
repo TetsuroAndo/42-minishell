@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 16:53:59 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 22:36:03 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 22:37:13 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,14 @@ typedef struct s_info
 	t_list		*token_list;
 	t_ast_node	*ast;
 	t_list		*env_map;
-	char		*source_line;
-	t_list		*token_list;
-	t_ast_node	*ast;
-	t_list		*env_map;
 	char		cwd[MAX_PATH];
 	t_status	status;
 }				t_info;
 
 t_info			*system_init(void);
-t_info			*system_init(void);
 void			system_deinit(t_info *info);
 
 void			system_exit(t_info *info, t_status status);
-
-t_status		xabsolute_path(char *dstpath, char *srcpath, char *envpathes,
-					int mode);
 
 /**** **** **** **** READLINE **** **** **** ****/
 char			*read_line_until_balanced(const char *prompt);
