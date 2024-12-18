@@ -6,12 +6,11 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:53:32 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 18:47:04 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 22:03:38 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lexer.h"
-#include "libft.h"
 
 static void	init_lexer(t_lexer *lx, const char *input)
 {
@@ -19,7 +18,6 @@ static void	init_lexer(t_lexer *lx, const char *input)
 	lx->pos = 0;
 }
 
-/* lexerは入力文字列を受け取り、トークン(t_list*)を返す */
 static t_list	*lexer(const char *input)
 {
 	t_lexer	lx;

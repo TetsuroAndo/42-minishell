@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:44:20 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 20:24:38 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 22:24:49 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_status		xlexer(t_info *info);
 
 /* <---------------- 内部用プロトタイプ ----------------> */
 
-/* lexer_cmd_token*/
+/* lexer_cmd_token.c */
 t_status		convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info);
 
 /* lexer_error.c */

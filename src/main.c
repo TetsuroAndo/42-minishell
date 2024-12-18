@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 16:45:19 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 18:45:46 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 22:30:50 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	shell_loop(t_info *info)
 {
 	while (1)
 	{
-		info->source_line = read_command_line(PROMPT);
+		info->source_line = read_line_until_balanced(PROMPT);
 		if (!info->source_line)
 		{
 			ft_dprintf(STDOUT_FILENO, "exit\n");

@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 16:53:59 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 17:11:05 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 21:56:27 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void			system_exit(t_info *info, t_status status);
 t_status		xabsolute_path(char *dstpath, char *srcpath, char *envpathes,
 					int mode);
 
-char			*read_command_line(const char *prompt);
+/**** **** **** **** READLINE **** **** **** ****/
+char			*read_line_until_balanced(const char *prompt);
 
 /**** **** **** ****ALLOCATE**** **** **** ****/
 void			*xmalloc(size_t size, t_info *info);

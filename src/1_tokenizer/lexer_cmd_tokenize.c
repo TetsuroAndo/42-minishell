@@ -6,12 +6,11 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:51:46 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 21:07:24 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 21:47:42 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lexer.h"
-#include "ft_system.h"
 
 /**
  * @brief t_cmd_token *cmdをt_info *info->token_listに追加
