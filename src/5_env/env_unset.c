@@ -6,7 +6,7 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:48:35 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 19:48:36 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/18 19:58:20 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,6 @@
 // 	}
 // }
 
-int	__cmp(void *data, void *key)
-{
-	return (ft_strncmp((char *)data, (char *)key, ft_strlen((char *)key)));
-}
 // keyを削除
 t_status	env_unset(t_list *env, char *key)
 {

@@ -6,14 +6,14 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:48:52 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 19:48:53 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:19:47 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_env.h"
 #include "ft_system.h"
 
-t_status	env_export(t_list **env, char *ent)
+t_status	env_export(t_list *env, char *ent)
 {
 	char	uniq_key[MAX_PATH];
 	char	*ent_cpy;
@@ -21,7 +21,7 @@ t_status	env_export(t_list **env, char *ent)
 	t_list	*lst;
 
 	ent_cpy = ft_strdup(ent);
-	if (!_check_key(uniq_key))
+	if (_check_key(uniq_key))
 		return (E_ENV_KEY);
 	if (!ent_cpy)
 		return (E_ALLOCATE);
@@ -36,6 +36,6 @@ t_status	env_export(t_list **env, char *ent)
 	lst = ft_lstnew(ent_cpy);
 	if (!lst)
 		return (free(ent_cpy), E_ALLOCATE);
-	ft_lstadd_back(env, lst);
+	ft_lstadd_back(&env, lst);
 	return (E_NONE);
 }

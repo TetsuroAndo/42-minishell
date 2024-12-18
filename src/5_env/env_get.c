@@ -6,19 +6,14 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:48:44 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 19:52:59 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/18 19:58:31 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_env.h"
 #include "ft_system.h"
 
-// keyから値を取得、なかったらNULL
-
-int	__cmp(void *data, void *key)
-{
-	return (ft_strncmp((char *)data, (char *)key, ft_strlen((char *)key)));
-}
+// keyから値を取得、なかったら""
 
 char	*env_get(t_list *env, char *key)
 {
