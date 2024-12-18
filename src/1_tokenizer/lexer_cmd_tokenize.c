@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:51:46 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 19:43:46 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 20:09:00 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
  *
  * @retval t_cmd_token *cmd
  */
-static t_cmd_token	*create_cmd_token(t_info *info, t_token_type type,
-		char *path, char **args)
+t_cmd_token	*create_cmd_token(t_info *info, t_token_type type, char *path,
+		char **args)
 {
 	t_cmd_token	*cmd;
 
@@ -69,44 +69,43 @@ static void	add_cmd_token_to_info(t_info *info, t_cmd_token *cmd)
 
 typedef struct s_cmd_seq
 {
-	t_list			*start;
-	t_list			*tmpp;
-	t_cmd_token		*cmd;
-	char			**args;
-	char			*path;
-	t_token			*ctk;
-}					t_cmd_seq;
+	t_list		*start;
+	t_list		*tmpp;
+	t_cmd_token	*cmd;
+	char		**args;
+	char		*path;
+	t_token		*ctk;
+	size_t		count;
+	size_t		i;
+}				t_cmd_seq;
 
 static t_status	process_cmd_sequence(t_info *info, t_list **cur)
 {
 	t_cmd_seq	seq;
-	size_t		count;
-	size_t		i;
 
-	count = 0;
+	seq.count = 0;
 	seq.start = *cur;
 	while (*cur && ((t_token *)(*cur)->data)->type == TT_CMD)
 	{
-		count++;
+		seq.count++;
 		*cur = (*cur)->next;
 	}
-	seq.args = xmalloc(sizeof(char *) * (count + 1), info);
+	seq.args = xmalloc(sizeof(char *) * (seq.count + 1), info);
 	seq.tmpp = seq.start;
-	i = 0;
-	while (i < count)
+	seq.i = 0;
+	while (seq.i < seq.count)
 	{
 		seq.ctk = (t_token *)seq.tmpp->data;
-		seq.args[i] = ft_strdup(seq.ctk->value);
+		seq.args[seq.i] = ft_strdup(seq.ctk->value);
 		seq.tmpp = seq.tmpp->next;
-		i++;
+		seq.i++;
 	}
-	seq.args[count] = NULL;
+	seq.args[seq.count] = NULL;
 	seq.path = ft_strdup(seq.args[0]);
 	seq.cmd = create_cmd_token(info, TT_CMD, seq.path, seq.args);
 	if (!seq.cmd)
 		return (E_ALLOCATE);
-	add_cmd_token_to_info(info, seq.cmd);
-	return (E_NONE);
+	return (add_cmd_token_to_info(info, seq.cmd), E_NONE);
 }
 
 static t_status	process_single_token(t_info *info, t_token_type type)
@@ -135,7 +134,6 @@ static t_status	process_single_token(t_info *info, t_token_type type)
  * @retval E_NONE 正常
  * @retval E_ALLOCATE メモリーの割り当てに失敗
  */
-
 t_status	convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info)
 {
 	t_list		*cur;
@@ -153,17 +151,13 @@ t_status	convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info)
 				return (st);
 			continue ;
 		}
-		if (tk->type == TT_PIPE || tk->type == TT_AND_AND
-			|| tk->type == TT_OR_OR || tk->type == TT_LPAREN
-			|| tk->type == TT_RPAREN)
+		if (is_token_special(tk->type))
 		{
 			st = process_single_token(info, tk->type);
 			if (st != E_NONE)
 				return (st);
-			cur = cur->next;
 		}
-		else
-			cur = cur->next;
+		cur = cur->next;
 	}
 	return (E_NONE);
 }
