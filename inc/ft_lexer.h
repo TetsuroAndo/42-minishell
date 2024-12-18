@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:44:20 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 19:55:09 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 20:24:38 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_cmd_token		*create_cmd_token(t_info *info, t_token_type type, char *path,
 void			skip_spaces(t_lexer *lx);
 int				is_special_char(char c);
 int				is_token_special(t_token_type type);
+int				is_token_redirect(t_token_type type);
 
 /* lexer_wildcards */
 void			expand_wildcards(t_list **tokens, t_info *info);

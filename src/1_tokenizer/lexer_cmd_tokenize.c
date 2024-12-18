@@ -6,37 +6,12 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:51:46 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 20:09:00 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 21:07:24 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_lexer.h"
 #include "ft_system.h"
-
-/**
- * @brief t_cmd_token *cmdを生成
- *
- * @details
- * t_cmd_token *cmdを生成
- * type, path, argsをメンバ変数に保持
- *
- * @param[in] type t_token_type
- * @param[in] path const char *
- * @param[in] args const char **
- *
- * @retval t_cmd_token *cmd
- */
-t_cmd_token	*create_cmd_token(t_info *info, t_token_type type, char *path,
-		char **args)
-{
-	t_cmd_token	*cmd;
-
-	cmd = xmalloc(sizeof(t_cmd_token), info);
-	cmd->type = type;
-	cmd->path = path;
-	cmd->args = args;
-	return (cmd);
-}
 
 /**
  * @brief t_cmd_token *cmdをt_info *info->token_listに追加
@@ -134,30 +109,89 @@ static t_status	process_single_token(t_info *info, t_token_type type)
  * @retval E_NONE 正常
  * @retval E_ALLOCATE メモリーの割り当てに失敗
  */
+static t_status	process_redirect_file(t_info *info, t_list **cur)
+{
+	t_token		*file_tk;
+	char		**file_args;
+	t_cmd_token	*cmd;
+
+	if (*cur && ((t_token *)(*cur)->data)->type == TT_CMD)
+	{
+		file_tk = (t_token *)(*cur)->data;
+		file_args = xmalloc(sizeof(char *) * 2, info);
+		if (!file_args)
+			return (E_ALLOCATE);
+		file_args[0] = ft_strdup(file_tk->value);
+		file_args[1] = NULL;
+		cmd = create_cmd_token(info, TT_CMD, ft_strdup(file_args[0]),
+				file_args);
+		if (!cmd)
+			return (E_ALLOCATE);
+		add_cmd_token_to_info(info, cmd);
+		*cur = (*cur)->next;
+	}
+	return (E_NONE);
+}
+
+// リダイレクトトークン処理
+static t_status	process_redirect_token(t_info *info, t_list **cur)
+{
+	t_token		*tk;
+	t_cmd_token	*cmd;
+	t_status	st;
+
+	tk = (t_token *)(*cur)->data;
+	cmd = create_cmd_token(info, tk->type, NULL, NULL);
+	if (!cmd)
+		return (E_ALLOCATE);
+	add_cmd_token_to_info(info, cmd);
+	*cur = (*cur)->next;
+	st = process_redirect_file(info, cur);
+	return (st);
+}
+
+// メインループ内でトークンタイプごとに処理分岐
+static t_status	process_token(t_info *info, t_list **cur)
+{
+	t_token		*tk;
+	t_status	st;
+
+	tk = (t_token *)(*cur)->data;
+	if (tk->type == TT_CMD)
+	{
+		st = process_cmd_sequence(info, cur);
+		return (st);
+	}
+	else if (is_token_special(tk->type))
+	{
+		st = process_single_token(info, tk->type);
+		if (st != E_NONE)
+			return (st);
+		*cur = (*cur)->next;
+	}
+	else if (is_token_redirect(tk->type))
+	{
+		st = process_redirect_token(info, cur);
+		if (st != E_NONE)
+			return (st);
+	}
+	else
+		*cur = (*cur)->next;
+	return (E_NONE);
+}
+
+// メイン関数
 t_status	convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info)
 {
 	t_list		*cur;
-	t_token		*tk;
 	t_status	st;
 
 	cur = tokens;
 	while (cur)
 	{
-		tk = (t_token *)cur->data;
-		if (tk->type == TT_CMD)
-		{
-			st = process_cmd_sequence(info, &cur);
-			if (st != E_NONE)
-				return (st);
-			continue ;
-		}
-		if (is_token_special(tk->type))
-		{
-			st = process_single_token(info, tk->type);
-			if (st != E_NONE)
-				return (st);
-		}
-		cur = cur->next;
+		st = process_token(info, &cur);
+		if (st != E_NONE)
+			return (st);
 	}
 	return (E_NONE);
 }
