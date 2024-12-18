@@ -1,10 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_unset.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 19:48:35 by ymizukam          #+#    #+#             */
+/*   Updated: 2024/12/18 19:48:36 by ymizukam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_env.h"
 #include "ft_system.h"
 
-
-
-
-// void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(void *, void *),
+// void	ft_list_remove_if(t_list **begin_list, void *data_ref,
+// int (*cmp)(void *, void *),
 // 		void (*free_fct)(void *))
 // {
 // 	t_list	*current;
@@ -34,20 +44,18 @@
 // 	}
 // }
 
-int __cmp(void *data, void *key)
+int	__cmp(void *data, void *key)
 {
-	return ft_strncmp((char *)data, (char *)key, ft_strlen((char *)key));
+	return (ft_strncmp((char *)data, (char *)key, ft_strlen((char *)key)));
 }
-//keyを削除
-t_status env_unset(t_list *env, char *key)
+// keyを削除
+t_status	env_unset(t_list *env, char *key)
 {
-    // //todo keyerror not a valid identifier
-    // t_list *plst;
-    // plst = _get_ptr(env, key);
-    // if (!plst)
-    //     return E_NONE;
-    // //tdo linledListのheadを削除するとセグフォになりそう
-    // env->next = lst_ptr->next;
-    // ft_lstdelone(lst_ptr,free);
-    return E_NONE;
+	char	uniq_key[MAX_PATH];
+	t_list	*lst;
+
+	ft_strlcpy(uniq_key, key, MAX_PATH);
+	ft_strlcat(uniq_key, "=", MAX_PATH);
+	ft_list_remove_if(&env, uniq_key, __cmp, free);
+	return (E_NONE);
 }
