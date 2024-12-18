@@ -10,6 +10,7 @@ int __cmp(void *data, void *key)
 char *env_get(t_list *env, char *key)
 {
     //printf("%s\n",__func__);
+    char *unique_key = ft_strndup(key, ft_strlen((char *)key));
     t_list *lst = ft_list_find(env,key,__cmp);
     if (!lst)
         return ft_strdup("");
