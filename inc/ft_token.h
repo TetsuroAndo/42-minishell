@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:20:59 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 17:51:54 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/19 02:08:10 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,43 @@ typedef struct s_cmd_token
 	char **args;       // 引数列(e.g. {"echo", "a", "b", "c", "d", NULL})
 }						t_cmd_token;
 
+typedef struct s_redirect
+{
+	t_token_type		type;
+	char				*filename;
+	struct s_redirect	*next;
+}						t_redirect;
+
+typedef struct s_command
+{
+	char *name;            // コマンド名 (例: "echo")
+	char **args;           // 引数リスト (例: ["echo","hello","world",NULL])
+	t_redirect *redirects; // リダイレクト一覧
+}						t_command;
+
+typedef struct s_pipeline
+{
+	struct s_ast_node	*left;
+	struct s_ast_node	*right;
+}						t_pipeline;
+
 typedef struct s_ast_node
 {
 	t_token_type		type;
-	// int                    file_type;
-	char				**args;
-	struct s_ast_node	*left;
-	struct s_ast_node	*right;
+	union
+	{
+		t_command		command;
+		t_pipeline		pipeline;
+	} u_data;
 }						t_ast_node;
+
+// typedef struct s_ast_node
+// {
+// 	t_token_type		type;
+// 	// int                    file_type;
+// 	char				**args;
+// 	struct s_ast_node	*left;
+// 	struct s_ast_node	*right;
+// }						t_ast_node;
 
 #endif

@@ -6,7 +6,7 @@
 #    By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/15 18:05:31 by teando            #+#    #+#              #
-#    Updated: 2024/12/18 22:36:13 by teando           ###   ########.fr        #
+#    Updated: 2024/12/19 01:45:00 by teando           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,26 @@ SRCS 		:= \
 		) \
 		main.c \
 	)
-	
+
+SRCS := \
+    test/test_parser.c \
+    src/2_parser/parser.c \
+	src/2_parser/ast_free.c \
+	src/2_parser/ast_utils.c \
+    src/0_system/system_init.c \
+    src/0_system/system_exit.c \
+    src/0_system/system_allocate.c \
+    src/0_system/readline.c \
+    src/1_tokenizer/lexer_cmd_tokenize.c \
+    src/1_tokenizer/lexer_loop.c \
+    src/1_tokenizer/lexer_read_word.c \
+    src/1_tokenizer/lexer_token_manage.c \
+    src/1_tokenizer/lexer_utils.c \
+    src/1_tokenizer/lexer_quote.c \
+    src/1_tokenizer/lexer_error.c \
+    src/1_tokenizer/lexer_wildcard.c \
+    src/1_tokenizer/tokenizer.c \
+
 OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(OBJS:.o=.d)
 
