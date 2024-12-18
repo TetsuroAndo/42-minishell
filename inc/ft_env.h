@@ -6,14 +6,14 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 21:48:09 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 21:48:11 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:53:46 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_ENV_H
 # define FT_ENV_H
 
-# include "libft_h"
+# include "libft.h"
 
 /**** funcs ****/
 

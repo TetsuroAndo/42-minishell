@@ -31,7 +31,7 @@ t_status	builtin_cd(const char *path, char **argv, t_info *info)
 	if (argv[1][0] == '/')
 		status = xabsolute_path(absolute_path, argv[1], F_OK);
 	status = chdir(absolute_path);
-	// printf("absolute_path: %s\n", absolute_path);
+	printf("absolute_path: %s\n", absolute_path);
 	if (errno)
 	{
 		printf("cd: %s: %s\n", argv[1], strerror(errno));

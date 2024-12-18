@@ -6,7 +6,7 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:48:52 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 21:43:32 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:52:05 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ t_status	env_export(t_list *env, char *ent)
 	lst = ft_list_find(env, uniq_key, __cmp);
 	if (lst) //すでに存在する場合上書き
 	{
-		printf("key already exist%s\n", lst->data);
 		free(lst->data);
 		lst->data = ent_cpy;
 		return (E_NONE);
 	}
-	printf("key dosent exist %s\n", ent_cpy);
 	lst = ft_lstnew(ent_cpy);
 	if (!lst)
 		return (free(ent_cpy), E_ALLOCATE);
