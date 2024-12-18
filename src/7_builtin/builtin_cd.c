@@ -27,16 +27,16 @@ t_status	builtin_cd(const char *path, char **argv, t_info *info)
 		// 余裕があればROOTに移動
 		return (E_NONE);
 	}
-	absolute_path = argv[1];
-	if (argv[1][0] == '/')
-		status = xabsolute_path(absolute_path, argv[1], F_OK);
+	ft_strlcpy(absolute_path, argv[1], MAX_PATH);
+	if (argv[1][0] != '/')
+		xabsolute_path(absolute_path, argv[1], info->env_map, F_OK);
 	status = chdir(absolute_path);
 	printf("absolute_path: %s\n", absolute_path);
 	if (errno)
 	{
 		printf("cd: %s: %s\n", argv[1], strerror(errno));
 		info->status = errno;
-		return (status)
+		return (status);
 	}
 	ft_strlcpy(info->cwd, absolute_path, MAX_PATH);
 	return (E_NONE);

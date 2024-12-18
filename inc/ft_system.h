@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_system.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 16:53:59 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 23:05:11 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 22:09:38 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,23 @@
 
 typedef struct s_info
 {
-	char *source_line;
-	t_list *token_list;
-	t_ast_node *ast;
-	t_list *env_map;
+	char		*source_line;
+	t_list		*token_list;
+	t_ast_node	*ast;
+	t_list		*env_map;
 	char		cwd[MAX_PATH];
-	// int			files[MAX_FD];
 	t_status	status;
 }				t_info;
 
-t_info			*system_init();
+t_info			*system_init(void);
 void			system_deinit(t_info *info);
 
 void			system_exit(t_info *info, t_status status);
 
-
-
-t_status xabsolute_path(char *dstpath, char *srcpath, char *envpathes, int mode);
-
 /**** **** **** ****ALLOCATE**** **** **** ****/
-void	*xmalloc(size_t size, t_info *info);
-t_list	*xlstnew(char* data, t_info *info);
-t_list	*xlst_from_strs(char **strs, t_info *info);
-char	**xlst_to_strs(t_list *lst, t_info *info);
+void			*xmalloc(size_t size, t_info *info);
+t_list			*xlstnew(char *data, t_info *info);
+t_list			*xlst_from_strs(char **strs, t_info *info);
+char			**xlst_to_strs(t_list *lst, t_info *info);
 
 #endif
