@@ -1,4 +1,0 @@
-[?2004hminishell> asdf^C[?2004l
-minishell> [?2004haf^C[?2004l
-minishell> [?2004h[?2004l
-exit
