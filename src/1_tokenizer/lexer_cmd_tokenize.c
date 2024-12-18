@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:51:46 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 19:15:46 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 19:43:46 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,12 @@
  *
  * @retval t_cmd_token *cmd
  */
-static t_cmd_token	*create_cmd_token(t_token_type type, char *path,
-		char **args)
+static t_cmd_token	*create_cmd_token(t_info *info, t_token_type type,
+		char *path, char **args)
 {
 	t_cmd_token	*cmd;
 
-	cmd = malloc(sizeof(t_cmd_token));
-	if (!cmd)
-		return (NULL);
+	cmd = xmalloc(sizeof(t_cmd_token), info);
 	cmd->type = type;
 	cmd->path = path;
 	cmd->args = args;
@@ -69,6 +67,59 @@ static void	add_cmd_token_to_info(t_info *info, t_cmd_token *cmd)
 	ft_lstadd_back(&info->token_list, node);
 }
 
+typedef struct s_cmd_seq
+{
+	t_list			*start;
+	t_list			*tmpp;
+	t_cmd_token		*cmd;
+	char			**args;
+	char			*path;
+	t_token			*ctk;
+}					t_cmd_seq;
+
+static t_status	process_cmd_sequence(t_info *info, t_list **cur)
+{
+	t_cmd_seq	seq;
+	size_t		count;
+	size_t		i;
+
+	count = 0;
+	seq.start = *cur;
+	while (*cur && ((t_token *)(*cur)->data)->type == TT_CMD)
+	{
+		count++;
+		*cur = (*cur)->next;
+	}
+	seq.args = xmalloc(sizeof(char *) * (count + 1), info);
+	seq.tmpp = seq.start;
+	i = 0;
+	while (i < count)
+	{
+		seq.ctk = (t_token *)seq.tmpp->data;
+		seq.args[i] = ft_strdup(seq.ctk->value);
+		seq.tmpp = seq.tmpp->next;
+		i++;
+	}
+	seq.args[count] = NULL;
+	seq.path = ft_strdup(seq.args[0]);
+	seq.cmd = create_cmd_token(info, TT_CMD, seq.path, seq.args);
+	if (!seq.cmd)
+		return (E_ALLOCATE);
+	add_cmd_token_to_info(info, seq.cmd);
+	return (E_NONE);
+}
+
+static t_status	process_single_token(t_info *info, t_token_type type)
+{
+	t_cmd_token	*cmd;
+
+	cmd = create_cmd_token(info, type, NULL, NULL);
+	if (!cmd)
+		return (E_ALLOCATE);
+	add_cmd_token_to_info(info, cmd);
+	return (E_NONE);
+}
+
 /**
  * @brief トークン列tokensをt_cmd_token列info->token_listに変換
  *
@@ -84,18 +135,12 @@ static void	add_cmd_token_to_info(t_info *info, t_cmd_token *cmd)
  * @retval E_NONE 正常
  * @retval E_ALLOCATE メモリーの割り当てに失敗
  */
+
 t_status	convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info)
 {
 	t_list		*cur;
 	t_token		*tk;
-	size_t		count;
-	t_list		*start;
-	char		**args;
-	t_list		*tmpp;
-	t_token		*ctk;
-	char		*path;
-	t_cmd_token	*cmd;
-	size_t		i;
+	t_status	st;
 
 	cur = tokens;
 	while (cur)
@@ -103,48 +148,22 @@ t_status	convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info)
 		tk = (t_token *)cur->data;
 		if (tk->type == TT_CMD)
 		{
-			// CMD列を収集
-			count = 0;
-			start = cur;
-			while (cur && ((t_token *)cur->data)->type == TT_CMD)
-			{
-				count++;
-				cur = cur->next;
-			}
-			args = xmalloc(sizeof(char *) * (count + 1), info);
-			tmpp = start;
-			i = 0;
-			while (i < count)
-			{
-				ctk = (t_token *)tmpp->data;
-				args[i] = ft_strdup(ctk->value);
-				tmpp = tmpp->next;
-				i++;
-			}
-			args[count] = NULL;
-			path = ft_strdup(args[0]);
-			cmd = create_cmd_token(TT_CMD, path, args);
-			if (!cmd)
-				return (E_ALLOCATE);
-			add_cmd_token_to_info(info, cmd);
+			st = process_cmd_sequence(info, &cur);
+			if (st != E_NONE)
+				return (st);
 			continue ;
 		}
-		else if (tk->type == TT_PIPE || tk->type == TT_AND_AND
+		if (tk->type == TT_PIPE || tk->type == TT_AND_AND
 			|| tk->type == TT_OR_OR || tk->type == TT_LPAREN
 			|| tk->type == TT_RPAREN)
 		{
-			cmd = create_cmd_token(tk->type, NULL, NULL);
-			if (!cmd)
-				return (E_ALLOCATE);
-			add_cmd_token_to_info(info, cmd);
+			st = process_single_token(info, tk->type);
+			if (st != E_NONE)
+				return (st);
 			cur = cur->next;
 		}
 		else
-		{
-			// TT_REDIRECT系やTT_EOF, TT_ERRORがくる場合、パーサー段階で扱うか
-			// ここでは簡易的にスキップまたはエラー処理を行う
 			cur = cur->next;
-		}
 	}
 	return (E_NONE);
 }

@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 17:57:03 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 19:08:34 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 19:41:00 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,45 @@
 #include <dirent.h>
 #include <fnmatch.h>
 
-/**
- * @brief ワイルドカードの展開結果をt_cmd_tokenのt_listに変換
- *
- * @param[in] matches ワイルドカードの展開結果
- *
- * @retval t_list *t_cmd_tokenのt_list
- */
 static t_list	*create_cmd_token_list_from_matches(char **matches)
 {
 	t_list	*lst;
 	t_token	tk;
+	int		i;
 
 	lst = NULL;
-	for (int i = 0; matches[i]; i++)
+	i = 0;
+	while (matches[i])
 	{
 		tk = make_token(TT_CMD, matches[i]);
 		lst = token_list_add(lst, tk);
+		if (!lst)
+		{
+			return (NULL);
+		}
+		i++;
 	}
 	return (lst);
+}
+
+static char	**append_match(char **res, size_t count, const char *new_str,
+		t_info *info)
+{
+	char	**new_res;
+	size_t	j;
+
+	new_res = (char **)xmalloc(sizeof(char *) * (count + 2), info);
+	j = 0;
+	while (j < count)
+	{
+		new_res[j] = res[j];
+		j++;
+	}
+	new_res[count] = ft_strdup(new_str);
+	new_res[count + 1] = NULL;
+	if (res)
+		free(res);
+	return (new_res);
 }
 
 static char	**wildcard_match(const char *pattern, t_info *info)
@@ -41,99 +61,94 @@ static char	**wildcard_match(const char *pattern, t_info *info)
 	struct dirent	*ent;
 	char			**res;
 	size_t			count;
-	char			**new_res;
 
 	res = NULL;
 	count = 0;
-	(void)info;
 	dir = opendir(".");
 	if (!dir)
 		return (NULL);
-	while ((ent = readdir(dir)) != NULL)
+	ent = readdir(dir);
+	while (ent)
 	{
 		if (fnmatch(pattern, ent->d_name, 0) == 0)
 		{
-			new_res = malloc(sizeof(char *) * (count + 2));
-			if (!new_res)
+			res = append_match(res, count, ent->d_name, info);
+			if (!res)
 			{
 				closedir(dir);
-				ft_strs_clear(res);
 				return (NULL);
 			}
-			if (res)
-			{
-				ft_memcpy(new_res, res, sizeof(char *) * count);
-				free(res);
-			}
-			new_res[count] = ft_strdup(ent->d_name);
-			new_res[count + 1] = NULL;
-			res = new_res;
 			count++;
 		}
+		ent = readdir(dir);
 	}
 	closedir(dir);
 	return (res);
 }
 
-/**
- * @brief トークン列*tokensに含まれるワイルドカードを展開
- *
- * @details
- * トークン列*tokensに含まれるワイルドカードを展開
- * TT_CMDトークンでありワイルドカード(*)を含むトークンのみを対象
- * ワイルドカードを展開してt_listにまとめ、ttokensの該当位置に挿入
- * その後、次のトークンを処理
- *
- * @param[in] tokens トークン列
- * @param[in] info t_info *
- *
- * @retval なし
- */
-void	expand_wildcards(t_list **tokens, t_info *info)
+static void	replace_current_node(t_list **tokens, t_list *cur, t_list *expanded)
 {
-	t_list	*cur;
+	t_list	*prev;
+	t_list	*next;
+	t_list	*tail;
+	t_list	*p;
+
+	next = cur->next;
+	prev = NULL;
+	p = *tokens;
+	while (p && p != cur)
+	{
+		prev = p;
+		p = p->next;
+	}
+	ft_lstdelone(cur, free_token);
+	if (prev)
+		prev->next = expanded;
+	else
+		*tokens = expanded;
+	tail = expanded;
+	while (tail && tail->next)
+		tail = tail->next;
+	if (tail)
+		tail->next = next;
+}
+
+static void	expand_wildcard_at_node(t_list **tokens, t_list **cur, t_info *info)
+{
 	t_token	*tk;
 	char	**matches;
 	t_list	*expanded;
+
+	tk = (t_token *)(*cur)->data;
+	if (tk->type == TT_CMD && tk->value && ft_strchr(tk->value, '*'))
+	{
+		matches = wildcard_match(tk->value, info);
+		if (matches && matches[0] != NULL)
+		{
+			expanded = create_cmd_token_list_from_matches(matches);
+			ft_strs_clear(matches);
+			if (expanded)
+			{
+				replace_current_node(tokens, *cur, expanded);
+				*cur = expanded;
+				return ;
+			}
+		}
+		if (matches)
+			ft_strs_clear(matches);
+	}
+}
+
+void	expand_wildcards(t_list **tokens, t_info *info)
+{
+	t_list	*cur;
 	t_list	*next;
-	t_list	*prev;
-	t_list	*tail;
 
 	cur = *tokens;
 	while (cur)
 	{
-		tk = (t_token *)cur->data;
-		if (tk->type == TT_CMD && tk->value && ft_strchr(tk->value, '*'))
-		{
-			matches = wildcard_match(tk->value, info);
-			if (matches && matches[0] != NULL)
-			{
-				expanded = create_cmd_token_list_from_matches(matches);
-				ft_strs_clear(matches);
-				// curノードをexpandedに置き換える
-				next = cur->next;
-				// リンクリストでcurを削除しexpandedを挿入
-				{
-					prev = NULL;
-					for (t_list *p = *tokens; p && p != cur; p = p->next)
-						prev = p;
-					ft_lstdelone(cur, free_token);
-					if (prev)
-						prev->next = expanded;
-					else
-						*tokens = expanded;
-					// expanded末尾へnextをつなぐ
-					tail = expanded;
-					while (tail->next)
-						tail = tail->next;
-					tail->next = next;
-					cur = next;
-					continue ;
-				}
-			}
-			if (matches)
-				ft_strs_clear(matches);
-		}
-		cur = cur->next;
+		next = cur->next;
+		expand_wildcard_at_node(tokens, &cur, info);
+		cur = next;
 	}
 }
