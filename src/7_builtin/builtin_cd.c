@@ -5,6 +5,7 @@
 #include <stdio.h>
 // #include <sys/types.h>
 #include <errno.h>
+#include <string.h>
 
 
 // static int	check_valid_dir(const char *absolute_path)
@@ -28,8 +29,8 @@ t_status	builtin_cd(const char *path, char **argv, t_info *info)
     }
 	status = xabsolute_path(absolute_path, argv[1], "/path1:path2", F_OK);
 	status = chdir(absolute_path);
-	printf("absolute_path: %s\n", absolute_path);
-	perror("cd");
+	// printf("absolute_path: %s\n", absolute_path);
+	printf("cd: %s: %s\n", argv[1], strerror(errno));
 	// if (check_valid_dir(argv[1]))
 	// {
 	// 	// todo errorハンドリング
