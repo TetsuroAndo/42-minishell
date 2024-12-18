@@ -6,12 +6,11 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:48:44 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 20:49:20 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:43:27 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_env.h"
-#include "ft_system.h"
 
 // keyから値を取得、なかったら""
 

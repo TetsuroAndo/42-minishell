@@ -6,12 +6,11 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:48:52 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 20:44:44 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:43:32 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_env.h"
-#include "ft_system.h"
 
 t_status	env_export(t_list *env, char *ent)
 {

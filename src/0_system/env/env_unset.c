@@ -6,12 +6,11 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:48:35 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 21:37:29 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:43:24 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_env.h"
-#include "ft_system.h"
 
 // keyを削除
 t_status	env_unset(t_list *env, char *key)

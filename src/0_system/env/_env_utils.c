@@ -6,12 +6,11 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:48:26 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 20:47:41 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:46:25 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_env.h"
-#include "ft_system.h"
 
 /*
  *keyの有効性を確かめる
