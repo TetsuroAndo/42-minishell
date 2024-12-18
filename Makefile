@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+         #
+#    By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/15 18:05:31 by teando            #+#    #+#              #
-#    Updated: 2024/12/17 20:02:13 by teando           ###   ########.fr        #
+#    Updated: 2024/12/18 20:03:28 by ymizukam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS 		:= \
 		) \
 		main.c \
 	)
+	
 OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(OBJS:.o=.d)
 
