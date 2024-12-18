@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:51:46 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 18:23:01 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 18:48:52 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ t_status	convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info)
 	t_token		*ctk;
 	char		*path;
 	t_cmd_token	*cmd;
+	size_t		i;
 
+	i = 0;
 	cur = tokens;
 	while (cur)
 	{
@@ -74,10 +76,10 @@ t_status	convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info)
 			}
 			args = xmalloc(sizeof(char *) * (count + 1), info);
 			tmpp = start;
-			for (size_t i = 0; i < count; i++)
+			while (i < count)
 			{
 				ctk = (t_token *)tmpp->data;
-				args[i] = ft_strdup(ctk->value);
+				args[i++] = ft_strdup(ctk->value);
 				tmpp = tmpp->next;
 			}
 			args[count] = NULL;

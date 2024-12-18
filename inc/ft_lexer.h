@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:44:20 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 18:20:56 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 18:52:30 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ typedef struct s_lexer
 t_status		xlexer(t_info *info);
 
 /* <---------------- 内部用プロトタイプ ----------------> */
-t_list			*lexer(const char *input);
-void			free_token(void *content);
-
 /* lexer_loop.c */
 t_list			*lexer_loop(t_lexer *lx);
 
@@ -44,6 +41,7 @@ char			*read_quoted_word(t_lexer *lx, char quote);
 
 /* lexer_token_manage.c */
 t_token			make_token(t_token_type type, const char *val);
+void			free_token(void *content);
 t_list			*token_list_add(t_list *lst, t_token tk);
 
 /* lexer_error.c */

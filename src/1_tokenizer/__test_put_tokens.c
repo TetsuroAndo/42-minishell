@@ -20,7 +20,6 @@ void	print_cmd_tokens(const t_list *tokens)
 {
 	const t_cmd_token	*cmd;
 	char				*typestr;
-	int					i;
 
 	while (tokens)
 	{
@@ -71,7 +70,6 @@ void	print_cmd_tokens(const t_list *tokens)
 			(cmd->path ? cmd->path : "(null)"));
 		if (cmd->args)
 		{
-			i = 0;
 			ft_printf("[\"");
 			ft_putstrs_fd(cmd->args, "\", \"", STDOUT_FILENO);
 			ft_printf("\"]");
