@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   lexer_loop.c                                       :+:      :+:    :+:   */
@@ -6,31 +6,62 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:53:09 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 00:53:11 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 18:34:39 by teando           ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "ft_lexer.h"
 #include "libft.h"
 
-static t_list *handle_special_char(t_lexer *lx, t_list *ts)
+static t_token_type	check_redirect_type(t_lexer *lx, char first)
 {
-	char c;
-	t_token_type tp;
+	char	next;
 
-	c = lx->input[lx->pos];
-	lx->pos++;
-	if (c == '|')
-		tp = TT_PIPE;
-	else
-		tp = check_redirect_type(lx, c);
-	ts = token_list_add(ts, make_token(tp, NULL));
-	return (ts);
+	next = lx->input[lx->pos];
+	if (first == '<' && next == '<')
+	{
+		lx->pos++;
+		return (TT_HEREDOC);
+	}
+	if (first == '>' && next == '>')
+	{
+		lx->pos++;
+		return (TT_APPEND);
+	}
+	if (first == '<')
+		return (TT_REDIRECT_IN);
+	return (TT_REDIRECT_OUT);
 }
 
-static t_list *handle_word(t_lexer *lx, t_list *ts)
+static t_list	*handle_special_char(t_lexer *lx, t_list *ts)
 {
-	char *w;
+	char	c;
+
+	c = lx->input[lx->pos++];
+	if (c == '|')
+	{
+		if (lx->input[lx->pos] == '|')
+			return (token_list_add(ts, make_token(TT_OR_OR, NULL)), lx->pos++,
+				ts);
+		return (token_list_add(ts, make_token(TT_PIPE, NULL)));
+	}
+	if (c == '&')
+	{
+		if (lx->input[lx->pos] == '&')
+			return (token_list_add(ts, make_token(TT_AND_AND, NULL)), lx->pos++,
+				ts);
+		return (add_error_token(ts));
+	}
+	if (c == '(')
+		return (token_list_add(ts, make_token(TT_LPAREN, NULL)));
+	if (c == ')')
+		return (token_list_add(ts, make_token(TT_RPAREN, NULL)));
+	return (token_list_add(ts, make_token(check_redirect_type(lx, c), NULL)));
+}
+
+static t_list	*handle_word(t_lexer *lx, t_list *ts)
+{
+	char	*w;
 
 	w = read_word(lx);
 	if (!w)
@@ -40,9 +71,9 @@ static t_list *handle_word(t_lexer *lx, t_list *ts)
 	return (ts);
 }
 
-t_list *lexer_loop(t_lexer *lx)
+t_list	*lexer_loop(t_lexer *lx)
 {
-	t_list *ts;
+	t_list	*ts;
 
 	ts = NULL;
 	skip_spaces(lx);

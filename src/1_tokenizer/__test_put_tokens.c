@@ -2,46 +2,83 @@
 #include "ft_token.h"
 #include "libft.h"
 
-static const char *get_token_type_str(t_token_type type)
+void	free_cmd_token(void *data)
 {
-	if (type == TT_CMD)
-		return ("CMD");
-	if (type == TT_PIPE)
-		return ("PIPE");
-	if (type == TT_REDIRECT_IN)
-		return ("REDIRECT_IN");
-	if (type == TT_REDIRECT_OUT)
-		return ("REDIRECT_OUT");
-	if (type == TT_APPEND)
-		return ("APPEND");
-	if (type == TT_HEREDOC)
-		return ("HEREDOC");
-	if (type == TT_ERROR)
-		return ("ERROR");
-	return ("EOF");
+	t_cmd_token	*cmd;
+
+	cmd = (t_cmd_token *)data;
+	if (!cmd)
+		return ;
+	if (cmd->path)
+		free(cmd->path);
+	if (cmd->args)
+		ft_strs_clear(cmd->args); // libftの拡張関数などでchar**解放
+	free(cmd);
 }
 
-void print_tokens(const t_list *tokens)
+void	print_cmd_tokens(const t_list *tokens)
 {
-	t_token *token;
+	const t_cmd_token	*cmd;
+	char				*typestr;
+	int					i;
 
-	if (!tokens)
-	{
-		printf("No tokens to print\n");
-		return;
-	}
 	while (tokens)
 	{
-		if (!tokens->data)
+		cmd = (const t_cmd_token *)tokens->data;
+		switch (cmd->type)
 		{
-			printf("Warning: NULL token data encountered\n");
-			tokens = tokens->next;
-			continue;
+		case TT_CMD:
+			typestr = "CMD";
+			break ;
+		case TT_PIPE:
+			typestr = "PIPE";
+			break ;
+		case TT_AND_AND:
+			typestr = "&&";
+			break ;
+		case TT_OR_OR:
+			typestr = "||";
+			break ;
+		case TT_LPAREN:
+			typestr = "(";
+			break ;
+		case TT_RPAREN:
+			typestr = ")";
+			break ;
+		case TT_REDIRECT_IN:
+			typestr = "<";
+			break ;
+		case TT_REDIRECT_OUT:
+			typestr = ">";
+			break ;
+		case TT_APPEND:
+			typestr = ">>";
+			break ;
+		case TT_HEREDOC:
+			typestr = "<<";
+			break ;
+		case TT_ERROR:
+			typestr = "ERROR";
+			break ;
+		case TT_EOF:
+			typestr = "EOF";
+			break ;
+		default:
+			typestr = "UNKNOWN";
+			break ;
 		}
-		token = (t_token *)tokens->data;
-		printf("Token = {type: %s, value: \"%s\"}\n",
-			   get_token_type_str(token->type),
-			   (token->value) ? token->value : "(null)");
+		ft_printf("CMD_TOKEN = {type: %s, path: \"%s\", args: ", typestr,
+			(cmd->path ? cmd->path : "(null)"));
+		if (cmd->args)
+		{
+			i = 0;
+			ft_printf("[\"");
+			ft_putstrs_fd(cmd->args, "\", \"", STDOUT_FILENO);
+			ft_printf("\"]");
+		}
+		else
+			ft_printf("(null)");
+		ft_printf("}\n");
 		tokens = tokens->next;
 	}
 }

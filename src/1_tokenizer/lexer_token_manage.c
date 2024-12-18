@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   lexer_token_manage.c                               :+:      :+:    :+:   */
@@ -6,16 +6,15 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:52:03 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 00:58:02 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 18:02:02 by teando           ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "ft_lexer.h"
-#include "libft.h"
 
-t_token make_token(t_token_type type, const char *val)
+t_token	make_token(t_token_type type, const char *val)
 {
-	t_token tk;
+	t_token	tk;
 
 	tk.type = type;
 	tk.value = NULL;
@@ -24,9 +23,9 @@ t_token make_token(t_token_type type, const char *val)
 	return (tk);
 }
 
-void free_token(void *ct)
+void	free_token(void *ct)
 {
-	t_token *t;
+	t_token	*t;
 
 	t = (t_token *)ct;
 	if (t)
@@ -36,10 +35,10 @@ void free_token(void *ct)
 	}
 }
 
-t_list *token_list_add(t_list *lst, t_token tk)
+t_list	*token_list_add(t_list *lst, t_token tk)
 {
-	t_token *dup;
-	t_list *new;
+	t_token	*dup;
+	t_list	*new;
 
 	dup = malloc(sizeof(t_token));
 	if (!dup)

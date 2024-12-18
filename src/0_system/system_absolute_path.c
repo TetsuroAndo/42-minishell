@@ -3,6 +3,7 @@
 t_status	xabsolute_path(char *dstpath, char *srcpath, char *envpathes,
 		int mode)
 {
+	(void)mode;
 	ft_strlcpy(dstpath, envpathes, MAX_PATH);
 	ft_strlcat(dstpath, "/", MAX_PATH);
 	ft_strlcat(dstpath, srcpath, MAX_PATH);

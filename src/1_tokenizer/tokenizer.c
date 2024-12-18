@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:53:32 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 17:40:10 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 17:58:23 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,16 @@ t_list	*lexer(const char *input)
 
 t_status	xlexer(t_info *info)
 {
+	t_list		*tokens;
+	t_status	st;
+
+	if (!info->source_line)
+		return (E_NONE);
+	tokens = lexer(info->source_line);
+	if (!tokens)
+		return (E_NONE);
+	expand_wildcards(&tokens, info);
+	st = convert_tokens_to_cmd_tokens(tokens, info);
+	ft_lstclear(&tokens, free_token);
+	return (st);
 }

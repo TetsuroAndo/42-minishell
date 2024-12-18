@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:44:20 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 17:02:47 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 18:20:56 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,14 @@ t_list			*token_list_add(t_list *lst, t_token tk);
 /* lexer_error.c */
 t_list			*add_error_token(t_list *tokens);
 
-/* lexer_check_redirect.c */
-t_token_type	check_redirect_type(t_lexer *lx, char first);
+/* lexer_wildcards */
+void			expand_wildcards(t_list **tokens, t_info *info);
+
+/* lexer_cmd_token*/
+t_status		convert_tokens_to_cmd_tokens(t_list *tokens, t_info *info);
+
+// test
+void			print_cmd_tokens(const t_list *tokens);
+void			free_cmd_token(void *data);
 
 #endif

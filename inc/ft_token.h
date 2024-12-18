@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:20:59 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 20:55:12 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 17:51:54 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ typedef enum e_token_type
 	TT_REDIRECT_OUT, // 出力リダイレクト
 	TT_APPEND,       // 追記リダイレクト
 	TT_HEREDOC,      // ヒアドキュメント
+	TT_AND_AND,      // &&
+	TT_OR_OR,        // ||
+	TT_LPAREN,       // (
+	TT_RPAREN,       // )
 	TT_EOF,          // 終端
 	TT_ERROR         // エラー
 }						t_token_type;

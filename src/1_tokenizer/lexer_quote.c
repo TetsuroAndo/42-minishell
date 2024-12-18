@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   lexer_quote.c                                      :+:      :+:    :+:   */
@@ -6,17 +6,16 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 00:52:34 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 00:52:35 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 18:01:57 by teando           ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "ft_lexer.h"
-#include "libft.h"
 
-char *read_quoted_word(t_lexer *lx, char quote)
+char	*read_quoted_word(t_lexer *lx, char quote)
 {
-	size_t start;
-	char *res;
+	size_t	start;
+	char	*res;
 
 	start = lx->pos;
 	while (lx->input[lx->pos] && lx->input[lx->pos] != quote)

@@ -1,4 +1,4 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,9 +6,9 @@
 #    By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/15 18:05:31 by teando            #+#    #+#              #
-#    Updated: 2024/12/18 00:56:31 by teando           ###   ########.fr        #
+#    Updated: 2024/12/18 18:26:50 by teando           ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 NAME		:= minishell
 CC			:= cc
@@ -26,6 +26,12 @@ SRCS 		:= \
 	$(addprefix src/, \
 		$(addprefix 0_system/, \
 			readline.c \
+			system_absolute_path.c \
+			system_allocate.c \
+			system_exit.c \
+			system_file_op.c \
+			system_init.c \
+			system_io.c \
 		) \
 		$(addprefix 1_tokenizer/, \
 			__test_put_tokens.c \
@@ -36,7 +42,8 @@ SRCS 		:= \
 			lexer_read_word.c \
 			lexer_token_manage.c \
 			lexer_error.c \
-			lexer_check_redirect.c \
+			lexer_cmd_tokenize.c \
+			lexer_wildcard.c \
 		) \
 		$(addprefix 2_parser/, \
 		) \
