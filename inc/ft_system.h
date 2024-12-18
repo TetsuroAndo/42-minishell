@@ -6,7 +6,7 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 16:53:59 by teando            #+#    #+#             */
-/*   Updated: 2024/12/18 21:56:27 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 22:36:03 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,15 @@ typedef struct s_info
 	t_list		*token_list;
 	t_ast_node	*ast;
 	t_list		*env_map;
+	char		*source_line;
+	t_list		*token_list;
+	t_ast_node	*ast;
+	t_list		*env_map;
 	char		cwd[MAX_PATH];
-	// int			files[MAX_FD];
 	t_status	status;
 }				t_info;
 
+t_info			*system_init(void);
 t_info			*system_init(void);
 void			system_deinit(t_info *info);
 
@@ -50,6 +54,10 @@ t_status		xabsolute_path(char *dstpath, char *srcpath, char *envpathes,
 char			*read_line_until_balanced(const char *prompt);
 
 /**** **** **** ****ALLOCATE**** **** **** ****/
+void			*xmalloc(size_t size, t_info *info);
+t_list			*xlstnew(char *data, t_info *info);
+t_list			*xlst_from_strs(char **strs, t_info *info);
+char			**xlst_to_strs(t_list *lst, t_info *info);
 void			*xmalloc(size_t size, t_info *info);
 t_list			*xlstnew(char *data, t_info *info);
 t_list			*xlst_from_strs(char **strs, t_info *info);

@@ -1,17 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_get.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 19:48:44 by ymizukam          #+#    #+#             */
+/*   Updated: 2024/12/18 21:43:27 by ymizukam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_env.h"
-#include "ft_system.h"
-//keyから値を取得、なかったらNULL
 
-int __cmp(void *data, void *key)
-{
-	return ft_strncmp((char *)data, (char *)key, ft_strlen((char *)key));
-}
+// keyから値を取得、なかったら""
 
-char *env_get(t_list *env, char *key)
+char	*env_get(t_list *env, char *key)
 {
-    //printf("%s\n",__func__);
-    t_list *lst = ft_list_find(env,key,__cmp);
-    if (!lst)
-        return ft_strdup("");
-    return ft_substr_r(lst->data,'=');
+	char	uniq_key[MAX_PATH];
+	t_list	*lst;
+
+	// printf("%s\n",__func__);
+	ft_strlcpy(uniq_key, key, MAX_PATH);
+	ft_strlcat(uniq_key, "=", MAX_PATH);
+	lst = ft_list_find(env, uniq_key, __cmp);
+	// note leak!!!MAX_PATHとして持っても良い
+	if (!lst)
+		return (ft_strdup(""));
+	return (ft_substr_r(lst->data, '='));
 }

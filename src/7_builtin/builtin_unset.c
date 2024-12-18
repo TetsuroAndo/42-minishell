@@ -4,5 +4,13 @@
 
 t_status	builtin_unset(const char *path, char **argv, t_info *info)
 {
+	int	i;
+
+	(void)path;
+	i = 0;
+	while (argv[i])
+	{
+		env_unset(info->env_map, argv[i++]);
+	}
 	return (E_NONE);
 }

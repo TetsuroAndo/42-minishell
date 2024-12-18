@@ -11,7 +11,7 @@ out
 obj
 outs
 objs
-env
+.env
 minishell
 /lib/libft/
 

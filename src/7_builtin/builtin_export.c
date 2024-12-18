@@ -4,8 +4,15 @@
 
 t_status	builtin_export(const char *path, char **argv, t_info *info)
 {
-	printf("%s\n",env_get(info->env_map,"TESTTTT"));
-	printf("%s\n",env_get(info->env_map,"PWD"));
+	int	i;
+
+	// printf("%s\n",env_get(info->env_map,"TEST"));
+	// printf("%s\n",env_get(info->env_map,"PWDDDDDDD"));
 	// env_export(info->env_map, argv[1]);
+	i = 1;
+	while (argv[i])
+	{
+		env_export(info->env_map, argv[i++]);
+	}
 	return (E_NONE);
 }

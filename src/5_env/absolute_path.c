@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.h                                           :+:      :+:    :+:   */
+/*   absolute_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 21:48:09 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 22:09:43 by ymizukam         ###   ########.fr       */
+/*   Created: 2024/12/18 22:06:10 by ymizukam          #+#    #+#             */
+/*   Updated: 2024/12/18 22:10:04 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ENV_H
-# define FT_ENV_H
-
-# include "ft_system.h"
-
-/**** ENV ****/
-// keyから値を取得、なかったらNULL
-char		*env_get(t_list *env, char *key);
-// entityを追加
-t_status	env_export(t_list *env, char *ent);
-// keyを削除
-t_status	env_unset(t_list *env, char *key);
+#include "ft_env.h"
+#include "ft_system.h"
 
 t_status	xabsolute_path(char *dstpath, char *srcpath, t_list *env_map,
-				int mode);
-/**** utils ****/
-int			_check_key(char *key);
-int			__cmp(void *data, void *key);
+		int mode)
+{
+	char	*envpathes;
 
-#endif
+	envpathes = env_get(env_map, "PATH");
+	ft_strlcpy(dstpath, envpathes, MAX_PATH);
+	ft_strlcat(dstpath, "/", MAX_PATH);
+	ft_strlcat(dstpath, srcpath, MAX_PATH);
+	return (E_NONE);
+}
