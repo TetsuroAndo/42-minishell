@@ -20,9 +20,9 @@ static int _check_key(char *key)
 t_status env_export(t_list **env, char *ent)
 {
     char *key;
-    key = ft_extract_left(ent,' ');
+    key = ft_substr_l(ent,'=');
     if (!key)
-        return E_ENV_KEY;
+        return E_ALLOCATE;
     // t_list *lst_ptr;
     // // lst_ptr = _get_ptr(env,key);
     // if (lst_ptr)//すでに存在する場合上書き

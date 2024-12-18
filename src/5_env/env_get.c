@@ -9,9 +9,9 @@ int __cmp(void *data, void *key)
 
 char *env_get(t_list *env, char *key)
 {
-    printf("%s\n",__func__);
+    //printf("%s\n",__func__);
     t_list *lst = ft_list_find(env,key,__cmp);
     if (!lst)
-        return NULL;
-    return lst->data;
+        return ft_strdup("");
+    return ft_substr_r(lst->data,'=');
 }
