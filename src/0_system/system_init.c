@@ -1,21 +1,14 @@
 #include "ft_system.h"
 
-t_info	*system_init()
+t_info	*system_init(char **envp)
 {
 	t_info	*info;
 
-	info = malloc(sizeof(t_info));
+	info = ft_calloc(sizeof(t_info), 1);
 	if (!info)
 		return (NULL);
-	info->source_line = NULL;
-	info->token_list = NULL;
-	info->ast = NULL;
-	info->env_map = NULL;//ft_list_from_strs(envp);
-	// ft_bzero(info->files, MAX_FD * sizeof(int));
-	info->status = E_NONE;
-	getcwd(info->cwd, MAX_PATH);
-	// if (!info->ast || !info->env_map)
-	// 	exit(E_ALLOCATE);
+	info->env_map = x_lst_from_strs(envp);
+	getcwd(info->cwd, PATH_MAX);
 	return (info);
 }
 
@@ -25,7 +18,7 @@ void	system_deinit(t_info *info)
 		return ;
 	free(info->source_line);
 	if (!info->token_list)
-		ft_lstclear(&info->token_list,free);
+		ft_lstclear(&info->token_list, free);
 	if (!info->env_map)
 		ft_lstclear(&info->env_map, free);
 	// ast_clear(info->ast);

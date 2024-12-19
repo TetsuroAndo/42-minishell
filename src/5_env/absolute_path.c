@@ -6,7 +6,7 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 22:06:10 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 22:10:04 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/20 05:13:55 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_status	xabsolute_path(char *dstpath, char *srcpath, t_list *env_map,
 	char	*envpathes;
 
 	envpathes = env_get(env_map, "PATH");
-	ft_strlcpy(dstpath, envpathes, MAX_PATH);
-	ft_strlcat(dstpath, "/", MAX_PATH);
-	ft_strlcat(dstpath, srcpath, MAX_PATH);
+	ft_strlcpy(dstpath, envpathes, PATH_MAX);
+	ft_strlcat(dstpath, "/", PATH_MAX);
+	ft_strlcat(dstpath, srcpath, PATH_MAX);
 	return (E_NONE);
 }

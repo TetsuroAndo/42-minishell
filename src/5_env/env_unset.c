@@ -6,7 +6,7 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:48:35 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 21:43:24 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/20 05:14:50 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 // keyを削除
 t_status	env_unset(t_list *env, char *key)
 {
-	char	uniq_key[MAX_PATH];
 	t_list	*lst;
 
-	ft_strlcpy(uniq_key, key, MAX_PATH);
-	ft_strlcat(uniq_key, "=", MAX_PATH);
-	ft_list_remove_if(&env, uniq_key, __cmp, free);
+	ft_list_remove_if(&env, key, __cmp, free);
 	return (E_NONE);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:41:18 by teando            #+#    #+#             */
-/*   Updated: 2024/12/17 19:31:59 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/18 22:31:00 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@
 # define PROMPT "minishell> "
 
 /* <----------- 0_core: exec_builtin -----------> */
-int		is_builtin(char *cmd);
-int		exec_builtin(void);
+// int		is_builtin(char *cmd);
+// int		exec_builtin(void);
 
 /* <----------- 6_signals -----------> */
-void	init_signals(void);
+// void	init_signals(void);
 
 /* <----------- 7_builtin -----------> */
 

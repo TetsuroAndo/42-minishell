@@ -6,7 +6,7 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:48:26 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 21:53:14 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/20 05:13:37 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,10 @@ int	_check_key(char *key)
 }
 int	__cmp(void *data, void *key)
 {
-	return (ft_strncmp((char *)data, (char *)key, ft_strlen((char *)key)));
+	char	uniq_key[PATH_MAX];
+
+	ft_strlcpy(uniq_key, key, PATH_MAX);
+	ft_strlcat(uniq_key, "=", PATH_MAX);
+	return (ft_strncmp((char *)data, (char *)uniq_key,
+			ft_strlen((char *)uniq_key)));
 }

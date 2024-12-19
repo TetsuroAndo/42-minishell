@@ -6,7 +6,7 @@
 /*   By: ymizukam <ymizukam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:48:52 by ymizukam          #+#    #+#             */
-/*   Updated: 2024/12/18 21:52:05 by ymizukam         ###   ########.fr       */
+/*   Updated: 2024/12/20 05:21:22 by ymizukam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 t_status	env_export(t_list *env, char *ent)
 {
-	char	uniq_key[MAX_PATH];
+	char	key[PATH_MAX];
 	char	*ent_cpy;
 	int		deli;
 	t_list	*lst;
 
 	ent_cpy = ft_strdup(ent);
-	if (_check_key(uniq_key))
-		return (E_ENV_KEY);
 	if (!ent_cpy)
 		return (E_ALLOCATE);
+	if (_check_key(key))
+		return (free(ent_cpy), E_ENV_KEY);
 	deli = ft_strspn(ent, "=");
-	ft_strncpy(uniq_key, ent, deli + 1);
-	lst = ft_list_find(env, uniq_key, __cmp);
+	ft_strncpy(key, ent, deli);
+	lst = ft_list_find(env, key, __cmp);
 	if (lst) //すでに存在する場合上書き
 	{
 		free(lst->data);
