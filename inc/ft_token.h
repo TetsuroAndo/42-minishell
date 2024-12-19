@@ -6,24 +6,12 @@
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:20:59 by teando            #+#    #+#             */
-/*   Updated: 2024/12/20 02:48:10 by teando           ###   ########.fr       */
+/*   Updated: 2024/12/20 03:02:46 by teando           ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #ifndef TOKEN_H
 #define TOKEN_H
-
-typedef enum e_status
-{
-	E_NONE = 0, // 正常
-	E_ALLOCATE = 1,
-	E_ENV_KEY = 1,
-	E_SYNTAX = 1,
-	E_PIPE = 1,
-	E_COMMAND_NOT_FOUND = 127,
-	E_SIGINT = 130,
-	E_SIGQUIT = 131,
-} t_status;
 
 typedef enum e_token_type
 {
